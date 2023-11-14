@@ -17,6 +17,7 @@ Data Visualizer is a powerful and user-friendly platform designed to turn your r
 - **Data Comparison and Analysis:** Dive deep into your datasets with advanced analysis tools, comparing and overlaying visualizations effortlessly.
 
 ## Website Architecture
+![Blank board - Page 1 (1)](https://github.com/badrbnh/Data_Visualizer/assets/81806381/526b707d-a9b9-4291-9f55-137c7ce51052)
 
 
 ### Components:
