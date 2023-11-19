@@ -1,0 +1,23 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Your head content here -->
+  </head>
+  <body>
+    <!-- Flash message placeholder -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Your body content here -->
+
+    {% block content %}{% endblock %}
+  </body>
+</html>

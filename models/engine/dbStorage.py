@@ -5,12 +5,10 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from os import getenv
 from sqlalchemy.ext.declarative import declarative_base
 from models.user import User
-from models.customer import Customer
-from models.admin import Admin
+
 
 Base = declarative_base()
-classes = {"User": User, "Customer": Customer,
-           "Admin": Admin}
+classes = {"User": User}
 class DBStorage():
     """This class manages storage of data visualizer"""
     __engine = None
@@ -62,4 +60,3 @@ class DBStorage():
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
-
