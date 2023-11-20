@@ -1,30 +1,49 @@
-#!/pyhton3/bin/python3
-"""This module defines a class to manage database storage for data visualizer"""
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
-from os import getenv
-from sqlalchemy.ext.declarative import declarative_base
+#!/usr/bin/python3
+"""
+Contains the class DBStorage
+"""
+
+import models
 from models.user import User
-
-
-Base = declarative_base()
+from os import getenv
+import sqlalchemy
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 classes = {"User": User}
+
+metadata = sqlalchemy.MetaData()
+Base = declarative_base()
 class DBStorage():
-    """This class manages storage of data visualizer"""
+    """interaacts with the MySQL database"""
     __engine = None
     __session = None
 
-    def __init__(self):
-        """Initialize DBStorage class"""
-        user = getenv('DV_MYSQL_USER')
-        password = getenv('DV_MYSQL_PWD')
-        host = getenv('DV_MYSQL_HOST')
-        db = getenv('DV_MYSQL_DB')
+    def __init__(self, app=None):
+        """Instantiate a DBStorage object"""
+        DV_MYSQL_USER = getenv('DV_MYSQL_USER')
+        DV_MYSQL_PWD = getenv('DV_MYSQL_PWD')
+        DV_MYSQL_HOST = getenv('DV_MYSQL_HOST')
+        DV_MYSQL_DB = getenv('DV_MYSQL_DB')
+        DV_ENV = getenv('DV_ENV')
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
-                        format(user, password, host, db), pool_pre_ping=True)
-        
-        if getenv('DV_ENV') == 'test':
+                                      format(DV_MYSQL_USER,
+                                             DV_MYSQL_PWD,
+                                             DV_MYSQL_HOST,
+                                             DV_MYSQL_DB))
+        if DV_ENV == "test":
             Base.metadata.drop_all(self.__engine)
+        self.create_all()
+        self._create_session()
+    def _create_session(self):
+        """Creates a new database session"""
+        sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(sess_factory)
+        self.__session = Session
+
+    def create_all(self):
+        """Create all tables in the database"""
+        Base.metadata.create_all(self.__engine)
 
     def all(self, cls=None):
         """query on the current database session"""
@@ -60,3 +79,33 @@ class DBStorage():
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
+
+    def get(self, cls, id):
+        """
+        Returns the object based on the class name and its ID, or
+        None if not found
+        """
+        if cls not in classes.values():
+            return None
+
+        all_cls = models.storage.all(cls)
+        for value in all_cls.values():
+            if (value.id == id):
+                return value
+
+        return None
+
+    def count(self, cls=None):
+        """
+        count the number of objects in storage
+        """
+        all_class = classes.values()
+
+        if not cls:
+            count = 0
+            for clas in all_class:
+                count += len(models.storage.all(clas).values())
+        else:
+            count = len(models.storage.all(cls).values())
+
+        return count
