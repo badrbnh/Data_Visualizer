@@ -9,6 +9,7 @@ app.config['SECRET_KEY'] = 'you-will-never-guess'
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """route for registration"""
     form = AddUser()
 
     if form.validate_on_submit():

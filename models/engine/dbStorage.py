@@ -15,7 +15,8 @@ classes = {"User": User}
 metadata = sqlalchemy.MetaData()
 Base = declarative_base()
 class DBStorage():
-    """interaacts with the MySQL database"""
+    """this class stores stores data to database"""
+    """interacts with the MySQL database"""
     __engine = None
     __session = None
 
@@ -35,15 +36,19 @@ class DBStorage():
             Base.metadata.drop_all(self.__engine)
         self.create_all()
         self._create_session()
+
+
     def _create_session(self):
         """Creates a new database session"""
         sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sess_factory)
         self.__session = Session
 
+
     def create_all(self):
         """Create all tables in the database"""
         Base.metadata.create_all(self.__engine)
+
 
     def all(self, cls=None):
         """query on the current database session"""
@@ -55,6 +60,7 @@ class DBStorage():
                     key = obj.__class__.__name__ + '.' + obj.id
                     new_dict[key] = obj
         return (new_dict)
+
 
     def new(self, obj):
         """add the object to the current database session"""
