@@ -1,5 +1,5 @@
 # app/routes.py
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, request
 from models.register import AddUser
 from models.login import LoginForm
 from models import db_storage
@@ -13,7 +13,8 @@ app.config['SECRET_KEY'] = 'you-will-never-guess'
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
-    return render_template('home.html')
+    username = request.args.get('username')
+    return render_template('home.html', username=username)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -46,7 +47,7 @@ def login():
             if user.username == form.username.data and user.check_password(form.password.data):
                 login_user(user, remember=form.remember_me.data)
                 flash('Login successful!', 'success')
-                return redirect(url_for('home'))
+                return redirect(url_for('home', username=user.username))
 
         flash('Invalid username or password', 'error')
         return redirect(url_for('login'))
@@ -55,7 +56,7 @@ def login():
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
     logout_user()
-    redirect(url_for('login'))
+    return redirect(url_for('login'))
 
 
 
