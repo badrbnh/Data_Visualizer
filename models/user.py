@@ -4,20 +4,21 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from web_flask import login
 import uuid
+from models.base_model import Base, BaseModel
 
-class Base(DeclarativeBase):
-    pass
-
-class User(Base, UserMixin):
+class User(Base, BaseModel, UserMixin):
     """User class"""
     __tablename__ = 'users'
-    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    id = Column(String(36), primary_key=True)
     username = Column(String(128), nullable=False)
     password_hash = Column(String(256), nullable=False)
     email = Column(String(128), nullable=False)
 
-    def __init__(self, username, password, email):
+    def __init__(self, username, password, email, *args, **kwargs):
         """Initializes user"""
+        super().__init__(*args, **kwargs)
+        if not self.id:
+            self.id = str(uuid.uuid4())
         self.username = username
         self.set_password(password)
         self.email = email
@@ -38,4 +39,4 @@ def load_user(id):
     for user in users.values():
         if user.id == id:
             return user
-            
+
