@@ -5,17 +5,24 @@
     <!-- Your head content here -->
   </head>
   <body>
-    <!-- Flash message placeholder -->
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class="flashes">
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-        </ul>
+    <div>
+      DV:
+      {% if current_user.is_anonymous %}
+      <a href="{{ url_for('register') }}">register</a>
+      <a href="{{ url_for('login') }}">Login</a>
+      {% else %}
+      <a href="{{ url_for('home') }}">home</a>
+      <a href="{{ url_for('logout') }}">logout</a>
       {% endif %}
-    {% endwith %}
-
+    </div>
+    <!-- Flash message placeholder -->
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul class="flashes">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
     <!-- Your body content here -->
 
     {% block content %}{% endblock %}
