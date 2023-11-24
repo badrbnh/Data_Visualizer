@@ -30,13 +30,27 @@ class User(Base, BaseModel, UserMixin):
     def check_password(self, password):
         """Checks password"""
         return check_password_hash(self.password_hash, password)
-
+    
+    @property
+    def is_customer(self):
+        """Checks if user is customer"""
+        return isinstance(self, Customer)
+    
+    @property
+    def is_admin(self):
+        """Checks if user is admin"""
+        return isinstance(self, Admin)
 
 @login.user_loader
 def load_user(id):
+    """Loads the user"""
     from models import db_storage
-    users = db_storage.all(User)
-    for user in users.values():
-        if user.id == id:
-            return user
+    
+    classes = [User, Customer, Admin]
+    
+    for cls in classes:
+        users = db_storage.all(cls)
+        for user in users.values():
+            if user.id == id:
+                return user
 

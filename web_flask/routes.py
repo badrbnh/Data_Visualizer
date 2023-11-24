@@ -5,11 +5,14 @@ from models.login import LoginForm
 from models import db_storage
 from sqlalchemy.orm import Session
 from models.user import User
+from models.admin import Admin
+from models.customer import Customer
 from flask_login import current_user, login_user, logout_user
 from web_flask import app
 
 app.config['SECRET_KEY'] = 'you-will-never-guess'
 
+classes = [User, Customer, Admin]
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
@@ -25,7 +28,7 @@ def register():
         username = form.username.data
         email = form.email.data
         password = form.password.data
-
+        "here the part where either an admin or a customer is created..."
         new_user = User(username=username, email=email, password=password)
         db_storage.new(new_user)
         db_storage.save()
@@ -43,12 +46,13 @@ def login():
 
     form = LoginForm()
     if form.validate_on_submit():
-        users = db_storage.all(User)
-        for user in users.values():
-            if user.username == form.username.data and user.check_password(form.password.data):
-                login_user(user, remember=form.remember_me.data)
-                flash('Login successful!', 'success')
-                return redirect(url_for('home', username=user.username))
+        for cls in classes:
+            users = db_storage.all(cls)
+            for user in users.values():
+                if user.username == form.username.data and user.check_password(form.password.data):
+                    login_user(user, remember=form.remember_me.data)
+                    flash('Login successful!', 'success')
+                    return redirect(url_for('home', username=user.username))
 
         flash('Invalid username or password', 'error')
         return redirect(url_for('login'))

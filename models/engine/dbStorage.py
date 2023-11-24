@@ -5,12 +5,14 @@ Contains the class DBStorage
 
 import models
 from models.user import User
+from models.admin import Admin
+from models.customer import Customer
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-classes = {"User": User}
+classes = {"User": User, "Admin": Admin, "Customer": Customer}
 
 metadata = sqlalchemy.MetaData()
 Base = declarative_base()
