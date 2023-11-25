@@ -26,7 +26,7 @@
     />
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="../static/scripts/upload.js"></script>
-    <script type="text/javascript" src="../static/scripts/menu.js"></script>
+
   </head>
   <body>
     <header class="header">
@@ -44,8 +44,10 @@
         </ul>
         <div class="buttons">
           {% if current_user.is_anonymous %}
-          <a href="{{ url_for('login') }}" class="signin">Sign In</a>
-          <a href="{{ url_for('register') }}" class="signup">Sign Up</a>
+          <div id="login">
+          <span><a href="{{ url_for('login') }}" class="signin">Sign In</a></span>
+          <span><a href="{{ url_for('register') }}" class="signup">Sign Up</a></span>
+          </div>
           {% else %}
           <img src="../static/resources/profileIcon.png" class="profile" onclick="toggleMenu()" />
           <div class="sub-menu-wrap" id="subMenu">
@@ -54,22 +56,20 @@
                 <img src="../static/resources/profileIcon.png" />
                 <h2>{{ current_user.username }}</h2>
               </div>
-              <hr />
 
               <a href="#" class="sub-menu-link">
                 <img src="../static/resources/profileEditIcon.png" />
                 <p>Edit profile</p>
-                <span>></span>
+
               </a>
               <a href="#" class="sub-menu-link">
                 <img src="../static/resources/settingsIcon.png" />
                 <p>Settings & Privacy</p>
-                <span>></span>
+
               </a>
               <a href="{{ url_for('logout')}}" class="sub-menu-link">
                 <img src="../static/resources/logoutIcon.png" />
                 <p>Logout</p>
-                <span>></span>
               </a>
             </div>
           </div>
@@ -79,5 +79,6 @@
       </nav>
     </header>
     {% block content %}{% endblock %}
+    <script type="text/javascript" src="../static/scripts/menu.js"></script>
   </body>
 </html>

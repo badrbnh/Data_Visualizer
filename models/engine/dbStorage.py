@@ -5,15 +5,16 @@ Contains the class DBStorage
 
 import models
 from models.user import User
+from models.data import Data
+from models.base_model import Base
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-classes = {"User": User}
 
-metadata = sqlalchemy.MetaData()
-Base = declarative_base()
+classes = {"User": User, "Data": Data}
+
 class DBStorage():
     """this class stores stores data to database"""
     """interacts with the MySQL database"""
@@ -94,7 +95,7 @@ class DBStorage():
         if cls not in classes.values():
             return None
 
-        all_cls = models.storage.all(cls)
+        all_cls = models.db_storage.all(cls)
         for value in all_cls.values():
             if (value.id == id):
                 return value
@@ -110,8 +111,8 @@ class DBStorage():
         if not cls:
             count = 0
             for clas in all_class:
-                count += len(models.storage.all(clas).values())
+                count += len(models.db_storage.all(clas).values())
         else:
-            count = len(models.storage.all(cls).values())
+            count = len(models.db_storage.all(cls).values())
 
         return count
