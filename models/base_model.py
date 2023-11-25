@@ -20,7 +20,6 @@ class BaseModel:
     id = Column(String(60), primary_key=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow)
-
     def __init__(self, *args, **kwargs):
         """Initialization of the base model"""
         if kwargs:
@@ -37,6 +36,8 @@ class BaseModel:
                 self.updated_at = datetime.utcnow()
             if kwargs.get("id", None) is None:
                 self.id = str(uuid.uuid4())
+            else:
+                self.id = kwargs["id"]
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.utcnow()
@@ -46,12 +47,6 @@ class BaseModel:
         """String representation of the BaseModel class"""
         return "[{:s}] ({:s}) {}".format(self.__class__.__name__, self.id,
                                          self.__dict__)
-
-    def save(self):
-        """updates the attribute 'updated_at' with the current datetime"""
-        self.updated_at = datetime.utcnow()
-        models.db_storage.new(self)
-        models.db_storage.save()
 
     def to_dict(self, save_fs=None):
         """returns a dictionary containing all keys/values of the instance"""
