@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block content %}
+<div class="upload-container">
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="input-file" id="upload-label">
+            <input type="file" name="file" id="input-file" accept=".csv, .xls, .xlsx" hidden>
+            <div id="img-view">
+                <img src="../static/resources/uploadIcon.png">
+                <p class="upload-p">Drag and drop or click here to upload</p>
+            </div>
+            <input type="submit">
+        </label>
+    </form>
+</div>
+{% endblock %}

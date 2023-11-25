@@ -1,18 +1,24 @@
-{% extends "base.html" %}
-
-{% block content %}
-    <h1>Sign In</h1>
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}
-        </p>
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit() }}</p>
-    </form>
+{% extends "base.html" %} {% block content %}
+<div class="login-container" id="container">
+  <div class="form-container log-in-container">
+    <div class="login-title"><h1>Welcome back!</h1></div>
+    <div class="login-form"><form action="" method="post" novalidate class="form-class">
+      {{ form.hidden_tag() }}
+      {{ form.username(size=32, class="form-input", placeholder="username") }}
+      {{ form.password(size=32, class="form-input", placeholder="username", style="margin-bottom: 0") }}
+      <div style="margin: 10px;">
+      {{ form.remember_me() }} {{ form.remember_me.label }}
+      </div>
+      {{ form.submit(class="login-btn") }}
+    </form></div>
+  </div>
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-right">
+        <h1>Join us</h1>
+        <p>Access the Future: Unleashing Data Insights</p>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
