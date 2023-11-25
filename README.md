@@ -1,4 +1,4 @@
-# Data Visualizer
+-# Data Visualizer
 
 **Welcome to Data Visualizer!**
 
