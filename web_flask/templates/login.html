@@ -6,7 +6,16 @@
       {{ form.hidden_tag() }}
       {{ form.username(size=32, class="form-input", placeholder="username") }}
       {{ form.password(size=32, class="form-input", placeholder="username", style="margin-bottom: 0") }}
-      <div style="margin: 10px;">
+      <div class="login-api">
+        <div id="github-api" onclick="loginGithub()">
+         <img src="../static/resources/githubIcon.png" class='github-icon'>
+        </div>
+         <div id="gSignInWrapper">
+              <img src="../static/resources/googleIcon.png" id="customBtn" class="customGPlusSignIn">
+        </div>
+        <div id="name"></div>
+      </div>
+        <div style="margin: 10px;">
       {{ form.remember_me() }} {{ form.remember_me.label }}
       </div>
       {{ form.submit(class="login-btn") }}

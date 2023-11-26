@@ -25,8 +25,8 @@
       href="{{ url_for('static', filename='styles/nav.css') }}"
     />
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script type="text/javascript" src="../static/scripts/upload.js"></script>
-
   </head>
   <body>
     <header class="header">
@@ -45,11 +45,21 @@
         <div class="buttons">
           {% if current_user.is_anonymous %}
           <div id="login">
-          <span><a href="{{ url_for('login') }}" class="signin">Sign In</a></span>
-          <span><a href="{{ url_for('register') }}" class="signup">Sign Up</a></span>
+            <span
+              ><a href="{{ url_for('login') }}" class="signin">Sign In</a></span
+            >
+            <span
+              ><a href="{{ url_for('register') }}" class="signup"
+                >Sign Up</a
+              ></span
+            >
           </div>
           {% else %}
-          <img src="../static/resources/profileIcon.png" class="profile" onclick="toggleMenu()" />
+          <img
+            src="../static/resources/profileIcon.png"
+            class="profile"
+            onclick="toggleMenu()"
+          />
           <div class="sub-menu-wrap" id="subMenu">
             <div class="sub-menu">
               <div class="user-info">
@@ -60,12 +70,10 @@
               <a href="#" class="sub-menu-link">
                 <img src="../static/resources/profileEditIcon.png" />
                 <p>Edit profile</p>
-
               </a>
               <a href="#" class="sub-menu-link">
                 <img src="../static/resources/settingsIcon.png" />
                 <p>Settings & Privacy</p>
-
               </a>
               <a href="{{ url_for('logout')}}" class="sub-menu-link">
                 <img src="../static/resources/logoutIcon.png" />
@@ -80,5 +88,16 @@
     </header>
     {% block content %}{% endblock %}
     <script type="text/javascript" src="../static/scripts/menu.js"></script>
+    <script
+      type="text/javascript"
+      src="../static/scripts/googleApi.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../static/scripts/githubApi.js"
+    ></script>
+    <script>
+      startApp();
+    </script>
   </body>
 </html>

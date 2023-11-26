@@ -16,6 +16,8 @@ app.config['SECRET_KEY'] = 'you-will-never-guess'
 
 @app.route('/inside', methods=['GET', 'POST'])
 def inside():
+    if current_user.is_anonymous:
+        return redirect(url_for('login'))
     return render_template('inside.html')
 
 @app.route('/home', methods=['GET'], strict_slashes=False)
@@ -25,7 +27,8 @@ def home():
 @app.route('/register', methods=['GET', 'POST'], strict_slashes=False)
 def register():
     form = AddUser()
-
+    if current_user.is_authenticated:
+        return redirect(url_for('inside'))
     if form.validate_on_submit():
         username = form.username.data
         email = form.email.data
