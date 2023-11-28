@@ -1,18 +1,14 @@
 # app/routes.py
-from flask import render_template, redirect, url_for, flash, request, jsonify
+from flask import render_template, redirect, url_for, flash, request
 from flask_login import current_user, login_user, logout_user
-from google.auth.transport import requests
-from google.oauth2 import id_token
 from models.register import AddUser
 from models.login import LoginForm
 from models import db_storage
 from models.user import User
 from models.data import Data
 import os
-from sqlalchemy.orm import Session
 from web_flask import app
 from werkzeug.utils import secure_filename
-from uuid import uuid4
 
 app.config['SECRET_KEY'] = 'you-will-never-guess'
 
@@ -69,7 +65,7 @@ def logout():
 @app.route('/upload', methods=['POST'])
 def upload():
     ALLOWED_EXTENSIONS = {'xls', 'xlsx', 'csv'}
-    app.config['UPLOAD_FOLDER'] = '/home/chikara/Programming/Projects/Data_Visualizer/data'
+    app.config['UPLOAD_FOLDER'] = '/home/chikara/Programming/Projects/Data_Visualizer/data/dr'
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     def allowed_file(filename):
         return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -87,9 +83,10 @@ def upload():
         data = Data(file_name=filename, user_id=user_id)
         db_storage.new(data)
         db_storage.save()
+        data.save_df()
         return redirect(url_for('inside'))
 
     return 'Invalid file format'
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=5000, debug=True)
+    app.run(host='localhost', port=5001, debug=True)

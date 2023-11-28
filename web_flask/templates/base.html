@@ -25,11 +25,13 @@
       href="{{ url_for('static', filename='styles/nav.css') }}"
     />
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://accounts.google.com/gsi/client" async></script>
+    <script src="https://apis.google.com/js/api:client.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="../static/scripts/upload.js" defer></script>
     <script type="text/javascript" src="../static/scripts/menu.js" defer></script>
     <script type="text/javascript" src="../static/scripts/googleApi.js" defer></script>
     <script type="text/javascript" src="../static/scripts/githubApi.js" defer></script>
+    <script type="text/javascript" src="../static/scripts/chartApi.js" defer></script>
   </head>
   <body>
     <header class="header">
@@ -84,7 +86,6 @@
               </a>
             </div>
           </div>
-
           {% endif %}
         </div>
       </nav>

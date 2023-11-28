@@ -3,7 +3,7 @@ var startApp = function() {
   gapi.load('auth2', function(){
     // Retrieve the singleton for the GoogleAuth library and set up the client.
     auth2 = gapi.auth2.init({
-      client_id: '',
+      client_id: '513823733667-2mklrfhca21rpdpbts7ge62l20li2esh.apps.googleusercontent.com',
       cookiepolicy: 'single_host_origin',
       scope: 'profile',
       // Request scopes in addition to 'profile' and 'email'
@@ -32,3 +32,7 @@ function attachSignin(element) {
         alert(JSON.stringify(error, undefined, 2));
       });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  startApp()
+})
