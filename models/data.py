@@ -1,6 +1,7 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String, LargeBinary, ForeignKey
+import pandas as pd
 import uuid
 class Data(Base, BaseModel):
     __tablename__ = 'data'
@@ -15,3 +16,12 @@ class Data(Base, BaseModel):
             self.id = str(uuid.uuid4())
         self.file_name = file_name
         self.user_id = user_id
+    
+    def read_data(self):
+        df = pd.read_excel(f"data/dr/{self.file_name}")
+        return df
+
+    def save_df(self):
+        df = self.read_data()
+        name = self.file_name.split('.')[0]
+        df.to_csv(f"data/df/{name}.csv", index=False)
