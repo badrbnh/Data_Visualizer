@@ -31,14 +31,14 @@ function drawChart(data) {
 
     var options = {
         'title': 'House Data Scatter Plot',
-        'width': 800,
-        'height': 400,
+        'width': 680,
+        'height': 280,
         'chartArea': {left: 60, top: 40, width: '80%', height: '70%'},
         'legend': 'none', // Remove legend for simplicity
         'pointSize': 8, // Adjust the size of data points
     };
 
     // Instantiate and draw the chart
-    var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
-    chart.draw(dataTable, options);
+    $("#convert-button").on("click", ()=>{var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+    chart.draw(dataTable, options);})
 }
