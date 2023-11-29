@@ -5,6 +5,7 @@ from models.register import AddUser
 from models.login import LoginForm
 from models import db_storage
 from models.user import User
+from models.data import Data
 import os
 from web_flask import app
 
@@ -14,7 +15,8 @@ app.config['SECRET_KEY'] = 'you-will-never-guess'
 def inside():
     if current_user.is_anonymous:
         return redirect(url_for('login'))
-    return render_template('inside.html', user_id=current_user.id)
+    data = db_storage.all(Data)
+    return render_template('inside.html', user_id=current_user.id, data=data)
 
 @app.route('/' , methods=['GET', 'POST'])
 @app.route('/home', methods=['GET'], strict_slashes=False)
