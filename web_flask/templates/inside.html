@@ -1,48 +1,58 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="hero-container">
-  <form id="upload-form" enctype="multipart/form-data">
-    <label for="input-file" id="upload-label">
-      <input
-        type="file"
-        name="file"
-        id="input-file"
-        accept=".csv, .xls, .xlsx"
-        hidden
-        />
-      <div id="img-view">
-        <div id="success-upload" style="display: none">
-          <img id="upload-icon" src="../static/resources/checkMark.png" />
-          <p id="upload-text" class="upload-p">
-            Uploaded <span class="upload-span">successfully</span>
-          </p>
+<div class="main-container">
+  <div class="hero-container">
+    <form id="upload-form" enctype="multipart/form-data">
+      <label for="input-file" id="upload-label">
+        <input
+          type="file"
+          name="file"
+          id="input-file"
+          accept=".csv, .xls, .xlsx"
+          hidden
+          />
+        <div id="img-view">
+          <div id="success-upload" style="display: none">
+            <img id="upload-icon" src="../static/resources/checkMark.png" />
+            <p id="upload-text" class="upload-p">
+              Uploaded <span class="upload-span">successfully</span>
+            </p>
+          </div>
+          <div id="unsuccess-upload" style="display: none">
+            <img id="upload-icon" src="../static/resources/xMark.png" />
+            <p id="upload-text" class="upload-p">
+              Uploaded <span class="upload-span">unsuccessfully</span>
+            </p>
+          </div>
+          <div id="content-container">
+            <img id="upload-icon" src="../static/resources/uploadIcon.png" />
+            <p id="upload-text" class="upload-p">
+              Drag and drop or <span class="upload-span">choose file</span>
+            </p>
+          </div>
         </div>
-        <div id="unsuccess-upload" style="display: none">
-          <img id="upload-icon" src="../static/resources/xMark.png" />
-          <p id="upload-text" class="upload-p">
-            Uploaded <span class="upload-span">unsuccessfully</span>
-          </p>
+      </label>
+      <div>
+        <div class="d-grid gap-2">
+          <input id="upload-button" type="button" class="btn btn-primary" value="Upload" />
         </div>
-        <div id="content-container">
-          <img id="upload-icon" src="../static/resources/uploadIcon.png" />
-          <p id="upload-text" class="upload-p">
-            Drag and drop or <span class="upload-span">choose file</span>
-          </p>
+        <div class="d-grid gap-2">
+          <input id="convert-button" type="button" class="btn btn-primary btn-success" value="Convert" hidden/>
         </div>
       </div>
-    </label>
-    <div>
-      <div class="d-grid gap-2">
-        <input id="upload-button" type="button" class="btn btn-primary" value="Upload" />
-      </div>
-      <div class="d-grid gap-2">
-        <input id="convert-button" type="button" class="btn btn-primary btn-success" value="Convert" hidden/>
-      </div>
-    </div>
-  </form>
-  <div id="chart_div"></div>
+    </form>
+    <div id="chart_div"></div>
+  </div>
+  <div class="history">
+    <select class="form-select" multiple aria-label="multiple select example">
+      {% for i in data.values() %}
+      {% if current_user.id == user_id %}
+      <option class="data-option">{{ i.file_name }}</option>
+      {% endif %}
+      {% endfor %}
+    </select>
+  </div>
 </div>
-
 <script>
   const inputFile = document.getElementById("input-file");
   const fileView = document.getElementById("img-view");
