@@ -3,19 +3,19 @@
     flex-direction: column;
     align-items: center;
     background: white;
-    height: 500px;
+    height: 640px;
     width: 800px;
     border-radius: 10px;
     margin: auto;
 }
 
 #upload-label {
-    padding: 30px;
+    margin: 24px 0;
     text-align: center;
 }
 #img-view {
-    width: 600px;
-    height: 100%;
+    width: 680px;
+    height: 200px;
     border: 2px dashed black;
     border-radius: 10px;
     background: rgb(176, 197, 230);
@@ -25,12 +25,22 @@
 
 #img-view img {
     width: 100px;
-    margin-top: 25px;
+    margin-top: 24px;
+    margin-bottom: 8px;
 }
 
 .upload-p {
     margin-top: 10px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: normal;
     margin-bottom: 0;
+}
+.upload-span {
+    border-bottom: black solid 1px;
+    font-weight: bold;
+}
+
+
+.btn {
+    margin-bottom: 12px;
 }

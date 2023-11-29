@@ -87,14 +87,6 @@ p {
   height: 100%;
 }
 
-#customBtn:hover {
-  cursor: pointer;
-}
-.customGPlusSignIn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-}
 
 .login-api {
   display: flex;

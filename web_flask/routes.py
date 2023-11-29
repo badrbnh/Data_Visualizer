@@ -5,10 +5,8 @@ from models.register import AddUser
 from models.login import LoginForm
 from models import db_storage
 from models.user import User
-from models.data import Data
 import os
 from web_flask import app
-from werkzeug.utils import secure_filename
 
 app.config['SECRET_KEY'] = 'you-will-never-guess'
 
@@ -16,8 +14,9 @@ app.config['SECRET_KEY'] = 'you-will-never-guess'
 def inside():
     if current_user.is_anonymous:
         return redirect(url_for('login'))
-    return render_template('inside.html')
+    return render_template('inside.html', user_id=current_user.id)
 
+@app.route('/' , methods=['GET', 'POST'])
 @app.route('/home', methods=['GET'], strict_slashes=False)
 def home():
     return render_template('home.html')
@@ -38,7 +37,7 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
 
-@app.route('/' , methods=['GET', 'POST'])
+
 @app.route('/login', methods=['GET', 'POST'], strict_slashes=False)
 def login():
     if current_user.is_authenticated:
@@ -54,7 +53,6 @@ def login():
 
         flash('Invalid username or password', 'error')
         return redirect(url_for('login'))
-
     return render_template('login.html', form=form)
 
 @app.route('/logout', methods=['GET', 'POST'], strict_slashes=False)
@@ -62,31 +60,6 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-@app.route('/upload', methods=['POST'])
-def upload():
-    ALLOWED_EXTENSIONS = {'xls', 'xlsx', 'csv'}
-    app.config['UPLOAD_FOLDER'] = '/home/chikara/Programming/Projects/Data_Visualizer/data/dr'
-    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-    def allowed_file(filename):
-        return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-    if 'file' not in request.files:
-        return redirect(request.url)
-    file = request.files['file']
-    if file.filename == '':
-        return redirect(request.url)
-    if file and allowed_file(file.filename):
-        # Save the file with a secure filename to the configured UPLOAD_FOLDER
-        filename = secure_filename(file.filename)
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        user_id = current_user.id
-        file.save(file_path)
-        data = Data(file_name=filename, user_id=user_id)
-        db_storage.new(data)
-        db_storage.save()
-        data.save_df()
-        return redirect(url_for('inside'))
-
-    return 'Invalid file format'
 
 if __name__ == '__main__':
     app.run(host='localhost', port=5001, debug=True)

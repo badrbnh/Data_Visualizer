@@ -10,12 +10,11 @@ class Data(Base, BaseModel):
     
     user = relationship('User', back_populates='data')
     
-    def __init__(self, file_name, user_id, *args, **kwargs):
+    def __init__(self, file_name, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if not self.id:
             self.id = str(uuid.uuid4())
         self.file_name = file_name
-        self.user_id = user_id
     
     def read_data(self):
         df = pd.read_excel(f"data/dr/{self.file_name}")

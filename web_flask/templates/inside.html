@@ -1,26 +1,105 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
+{% block content %}
 <div class="hero-container">
+  <form id="upload-form" enctype="multipart/form-data">
+    <label for="input-file" id="upload-label">
+      <input
+        type="file"
+        name="file"
+        id="input-file"
+        accept=".csv, .xls, .xlsx"
+        hidden
+        />
+      <div id="img-view">
+        <div id="success-upload" style="display: none">
+          <img id="upload-icon" src="../static/resources/checkMark.png" />
+          <p id="upload-text" class="upload-p">
+            Uploaded <span class="upload-span">successfully</span>
+          </p>
+        </div>
+        <div id="unsuccess-upload" style="display: none">
+          <img id="upload-icon" src="../static/resources/xMark.png" />
+          <p id="upload-text" class="upload-p">
+            Uploaded <span class="upload-span">unsuccessfully</span>
+          </p>
+        </div>
+        <div id="content-container">
+          <img id="upload-icon" src="../static/resources/uploadIcon.png" />
+          <p id="upload-text" class="upload-p">
+            Drag and drop or <span class="upload-span">choose file</span>
+          </p>
+        </div>
+      </div>
+    </label>
     <div>
-        <form action="/upload" method="post" enctype="multipart/form-data">
-            <label for="input-file" id="upload-label">
-                <input type="file" name="file" id="input-file" accept=".csv, .xls, .xlsx" hidden>
-                <div id="img-view">
-                    <img src="../static/resources/uploadIcon.png">
-                    <p class="upload-p">Drag and drop or click here to upload</p>
-                </div>
-                <input type="submit">
-            </label>
-        </form>
+      <div class="d-grid gap-2">
+        <input id="upload-button" type="button" class="btn btn-primary" value="Upload" />
+      </div>
+      <div class="d-grid gap-2">
+        <input id="convert-button" type="button" class="btn btn-primary btn-success" value="Convert" hidden/>
+      </div>
     </div>
-    <div>
-        <label for="cars">Choose a car:</label>
-        <select id="cars" name="cars">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
-        </select>
-    </div>
-    <div id="chart_div"></div>
+  </form>
+  <div id="chart_div"></div>
 </div>
+
+<script>
+  const inputFile = document.getElementById("input-file");
+  const fileView = document.getElementById("img-view");
+  const contentView = document.getElementById("content-container");
+
+  inputFile.addEventListener("change", showFileInfo);
+
+  function showFileInfo() {
+    const file = inputFile.files[0];
+
+    if (file) {
+      contentView.lastElementChild.textContent = `Uploaded File: ${file.name}`;
+      fileView.style.border = "2px dashed black";
+    } else {
+      contentView.lastElementChild.textContent = "Please select a file.";
+      fileView.style.border = "2px dashed red";
+    }
+  }
+
+  function toggleButton() {
+    const uploadButton = document.getElementById("upload-button");
+    const convertButton = document.getElementById("convert-button");
+
+    uploadButton.hidden = !uploadButton.hidden;
+    convertButton.hidden = !convertButton.hidden;
+  }
+
+  document.getElementById("upload-button").addEventListener("click", uploadFile);
+
+  function uploadFile() {
+    const file = inputFile.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("user_id", "{{ user_id }}");
+
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "http://127.0.0.1:5000/api/v1/upload");
+      xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          contentView.style.display = "none";
+          inputFile.setAttribute("disabled", "disabled");
+          document.getElementById("success-upload").style.display = "block";
+          toggleButton();
+          console.log(response);
+        } else {
+          contentView.style.display = "none";
+          document.getElementById("unsuccess-upload").style.display = "block";
+          console.error("Upload failed. Error code: " + xhr.status);
+        }
+      };
+
+      xhr.send(formData);
+    }
+  }
+</script>
 {% endblock %}
