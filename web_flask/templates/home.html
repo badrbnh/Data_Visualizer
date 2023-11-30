@@ -1,20 +1,20 @@
 {% extends "base.html" %} {% block content %}
-<section class="hero-section">
-  <div class="hero">
-    <h2>Easy converting---from data to charts</h2>
-    <p>
-      Transform your data effortlessly! Create stunning visualizations, monitor
-      real-time updates, and collaborate seamlessly. Personalize your experience
-      and dive into advanced analysis tools. Sign up now for a visual
-      exploration like never before!
-    </p>
-    <div class="buttons">
-      <a href="#" class="star">Get started</a>
-      <a href="#" class="try">Try Dv for free</a>
-    </div>
+<div class="home-container">
+  <div class="left-half">
+      <h2>Easy converting---from data to charts</h2>
+      <p>
+        Transform your data effortlessly! Create stunning visualizations, monitor
+        real-time updates, and collaborate seamlessly. Personalize your experience
+        and dive into advanced analysis tools. Sign up now for a visual
+        exploration like never before!
+      </p>
+      <div type="button" class="btn btn-light btn-lg">
+        <a href="{{ url_for("login") }}" class="star">Get started</a>
+      </div>
   </div>
-  <div class="img">
-    <img src="../static/resources/home.png" alt="lmoush png" />
+  <div class="right-half">
+      <div class="img">
+        <img src="../static/resources/home.png" class="img-fluid" />
+      </div>
   </div>
-</section>
 {% endblock %}

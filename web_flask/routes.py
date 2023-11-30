@@ -11,7 +11,7 @@ from web_flask import app
 
 app.config['SECRET_KEY'] = 'you-will-never-guess'
 
-@app.route('/inside', methods=['GET', 'POST'])
+@app.route('/inside', methods=['GET'])
 def inside():
     if current_user.is_anonymous:
         return redirect(url_for('login'))

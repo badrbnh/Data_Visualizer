@@ -31,34 +31,28 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="../static/scripts/menu.js" defer></script>
     <script type="text/javascript" src="../static/scripts/githubApi.js" defer></script>
-    <script type="text/javascript" src="../static/scripts/chartApi.js" defer></script>
     <script type="text/javascript" src="../static/scripts/googleApi.js" defer></script>
   </head>
   <body>
     <header class="header">
-      <nav class="navbar">
-        <div class="logo">
-          <a href="{{ url_for('home') }}"
-            ><img src="../static/resources/logo.png"
-          /></a>
-        </div>
-        <ul class="links">
-          <li><a href="{{ url_for('home') }}">Home</a></li>
-          <li><a href="#">Discover</a></li>
-          <li><a href="#">Offers</a></li>
-          <li><a href="#">Portfolio</a></li>
-        </ul>
-        <div class="buttons">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="../static/resources/logo.png" alt="" width="48" height="auto" class="d-inline-block align-text-center">
+            DataVisualizer
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="{{ url_for("home") }}">Home</a>
+            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link" href="#">Pricing</a>
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </div>
           {% if current_user.is_anonymous %}
-          <div id="login">
-            <span
-              ><a href="{{ url_for('login') }}" class="signin">Sign In</a></span
-            >
-            <span
-              ><a href="{{ url_for('register') }}" class="signup"
-                >Sign Up</a
-              ></span
-            >
+          <div class="btn btn-light">
+            <a href="{{ url_for("login") }}">Sign in</a>
           </div>
           {% else %}
           <img

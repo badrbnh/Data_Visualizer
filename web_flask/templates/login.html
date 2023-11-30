@@ -1,32 +1,34 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="login-container" id="container">
-  <div class="form-container log-in-container">
-    <div class="login-title"><h1>Welcome back!</h1></div>
-    <div class="login-form">
-      <form action="" method="post" novalidate class="form-class">
-        {{ form.hidden_tag() }}
-        {{ form.username(size=32, class="form-input", placeholder="username") }}
-        {{ form.password(size=32, class="form-input", placeholder="password", style="margin-bottom: 0") }}
-        <div class="login-api">
-          <div id="github-api" onclick="loginGithub()">
-            <img src="../static/resources/githubIcon.png" class='github-icon'>
+<div class="login-page">
+  <div class="login-container" id="container">
+    <div class="form-container log-in-container">
+      <div class="login-title"><h1>Welcome back!</h1></div>
+      <div class="login-form">
+        <form action="" method="post" novalidate class="form-class">
+          {{ form.hidden_tag() }}
+          {{ form.username(size=32, class="form-input", placeholder="username") }}
+          {{ form.password(size=32, class="form-input", placeholder="password", style="margin-bottom: 0") }}
+          <div class="login-api">
+            <div id="github-api" onclick="loginGithub()">
+              <img src="../static/resources/githubIcon.png" class='github-icon'>
+            </div>
+            <div id="gSignInWrapper">
+            </div>
           </div>
-          <div id="gSignInWrapper">
+          <div style="margin: 10px;">
+            {{ form.remember_me() }} {{ form.remember_me.label }}
           </div>
-        </div>
-        <div style="margin: 10px;">
-          {{ form.remember_me() }} {{ form.remember_me.label }}
-        </div>
-        {{ form.submit(class="login-btn") }}
-      </form>
+          {{ form.submit(class="login-btn") }}
+        </form>
+      </div>
     </div>
-  </div>
-  <div class="overlay-container">
-    <div class="overlay">
-      <div class="overlay-panel overlay-right">
-        <h1>Join us</h1>
-        <p>Access the Future: Unleashing Data Insights</p>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-right">
+          <h1>Join us</h1>
+          <p>Access the Future: Unleashing Data Insights</p>
+        </div>
       </div>
     </div>
   </div>
