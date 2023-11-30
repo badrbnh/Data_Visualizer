@@ -1,63 +1,104 @@
-.main-container{
-    display: flex;
-    margin: auto;
+.main-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  display: flex;
+  margin: auto;
 }
 .hero-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: white;
-    height: 640px;
-    width: 800px;
-    border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #cce1f9;
+  height: 640px;
+  width: 800px;
+  border-radius: 8px;
 }
 
 #upload-label {
-    margin: 24px 0;
-    text-align: center;
+  margin: 24px 0;
+  text-align: center;
 }
 #img-view {
-    width: 680px;
-    height: 200px;
-    border: 2px dashed black;
-    border-radius: 10px;
-    background: rgb(176, 197, 230);
-    background-position: center;
-    background-size: cover;
+  width: 680px;
+  height: 200px;
+  border: 2px dashed black;
+  border-radius: 10px;
+  background: rgb(176, 197, 230);
+  background-position: center;
+  background-size: cover;
 }
 
 #img-view img {
-    width: 100px;
-    margin-top: 24px;
-    margin-bottom: 8px;
+  width: 100px;
+  margin-top: 24px;
+  margin-bottom: 8px;
 }
 
 .upload-p {
-    margin-top: 10px;
-    font-size: 18px;
-    font-weight: normal;
-    margin-bottom: 0;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: normal;
+  margin-bottom: 0;
 }
 .upload-span {
-    border-bottom: black solid 1px;
-    font-weight: bold;
+  border-bottom: black solid 1px;
+  font-weight: bold;
 }
 
 .btn {
-    margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 .history {
-    background: #fff;
-    width: 240px;
-    height: 640px;
-    margin: 0 20px;
-    border-radius: 8px;
+  background: #cce1f9;
+  width: 240px;
+  height: 640px;
+  margin: 0 20px;
+  border-radius: 8px;
+}
+.options-container {
+    display: flex;
+    align-items: center;
+}
+.file-container {
+    width: 280px;
+    border: 1px solid black;
+  border-radius: 4px;
+  margin: 4px;
 }
 
-.form-select {
-    height: 640px;
+.file-container img {
+  width: 32px;
 }
+.file-container:hover {
+  cursor: pointer;
+  background: #a4c4f3;
+}
+
+.options {
+  max-height: 640px;
+  overflow-y: auto;
+}
+
 .data-option {
-    padding: 8px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.delete-file{
+    margin-right: 4px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.delete-file img{
+    width: 32px;
+}
+.delete-file:hover {
+    cursor: pointer;
+    background-color: #e447479b;
 }

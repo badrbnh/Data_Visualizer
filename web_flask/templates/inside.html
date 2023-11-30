@@ -10,7 +10,7 @@
           id="input-file"
           accept=".csv, .xls, .xlsx"
           hidden
-          />
+        />
         <div id="img-view">
           <div id="success-upload" style="display: none">
             <img id="upload-icon" src="../static/resources/checkMark.png" />
@@ -22,6 +22,12 @@
             <img id="upload-icon" src="../static/resources/xMark.png" />
             <p id="upload-text" class="upload-p">
               Uploaded <span class="upload-span">unsuccessfully</span>
+            </p>
+          </div>
+          <div id="selected-file" style="display: none">
+            <img id="upload-icon" src="../static/resources/excelFileIcon.png" />
+            <p id="upload-text" class="upload-p">
+              Selected <span class="upload-span"></span>
             </p>
           </div>
           <div id="content-container">
@@ -37,20 +43,30 @@
           <input id="upload-button" type="button" class="btn btn-primary" value="Upload" />
         </div>
         <div class="d-grid gap-2">
-          <input id="convert-button" type="button" class="btn btn-primary btn-success" value="Convert" hidden/>
+          <input id="convert-button" type="button" class="btn btn-primary btn-success" value="Convert" hidden />
         </div>
       </div>
     </form>
     <div id="chart_div"></div>
   </div>
   <div class="history">
-    <select class="form-select" multiple aria-label="multiple select example">
-      {% for i in data.values() %}
-      {% if current_user.id == user_id %}
-      <option class="data-option">{{ i.file_name }}</option>
-      {% endif %}
-      {% endfor %}
-    </select>
+    <div class="custom-select">
+      <div class="options">
+        {% for i in data.values() %}
+        {% if current_user.id == user_id %}
+        <div class="options-container">
+          <div class="file-container" data-file-name="{{ i.file_name }}" data-file-id="{{ i.id }}" onclick="toggleButtonFiles(this)">
+            <img src="../static/resources/excelIcon.png">
+            <span class="data-option">{{ i.file_name }}</span>
+          </div>
+          <div class="delete-file" onclick="deleteFile()">
+            <img src="../static/resources/deleteIcon.png">
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
   </div>
 </div>
 <script>
@@ -80,36 +96,136 @@
     convertButton.hidden = !convertButton.hidden;
   }
 
-  document.getElementById("upload-button").addEventListener("click", uploadFile);
+  let fileName = '';
+  let file_id = ''
 
-  function uploadFile() {
-    const file = inputFile.files[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("user_id", "{{ user_id }}");
+  function toggleButtonFiles(element) {
+    const uploadButton = document.getElementById("upload-button");
+    const convertButton = document.getElementById("convert-button");
+    const fileContainer = element;
+    const selectedFile = document.getElementById("selected-file");
+    const selectedFileNameElement = selectedFile.querySelector(".upload-span");
 
-      const xhr = new XMLHttpRequest();
-      xhr.open("POST", "http://127.0.0.1:5000/api/v1/upload");
-      xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+    fileName = fileContainer.dataset.fileName; // Retrieve the file name from the data attribute
+    file_id = fileContainer.dataset.fileId;
 
-      xhr.onload = function () {
-        if (xhr.status === 200) {
-          const response = JSON.parse(xhr.responseText);
-          contentView.style.display = "none";
-          inputFile.setAttribute("disabled", "disabled");
-          document.getElementById("success-upload").style.display = "block";
-          toggleButton();
-          console.log(response);
-        } else {
-          contentView.style.display = "none";
-          document.getElementById("unsuccess-upload").style.display = "block";
-          console.error("Upload failed. Error code: " + xhr.status);
-        }
-      };
-
-      xhr.send(formData);
+    if (selectedFileNameElement.textContent === fileName) {
+      uploadButton.hidden = !uploadButton.hidden;
+      convertButton.hidden = !convertButton.hidden;
+      fileContainer.style.background = "";
+      contentView.style.display = "block";
+      selectedFile.style.display = "none";
+      selectedFileNameElement.textContent = "";
+    } else {
+      uploadButton.hidden = true;
+      convertButton.hidden = false;
+      fileContainer.style.background = "#a4c4f3";
+      contentView.style.display = "none";
+      selectedFile.style.display = "block";
+      selectedFileNameElement.textContent = fileName;
     }
   }
-</script>
-{% endblock %}
+
+  document.getElementById("upload-button").addEventListener("click", uploadFile);
+
+  function uploadFile(){
+  const file = inputFile.files[0];
+  if (file) {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("user_id", "{{ user_id }}");
+  
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://127.0.0.1:5000/api/v1/upload");
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+  
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        const response = JSON.parse(xhr.responseText);
+        contentView.style.display = "none";
+        inputFile.setAttribute("disabled", "disabled");
+        document.getElementById("success-upload").style.display = "block";
+        toggleButton();
+        console.log(response);
+      } else {
+        contentView.style.display = "none";
+        document.getElementById("unsuccess-upload").style.display = "block";
+        console.error("Upload failed. Error code: " + xhr.status);
+      }
+    };
+  
+    xhr.send(formData);
+  }
+  }
+  
+  function deleteFile() {
+    const formData = new FormData();
+    const xhr = new XMLHttpRequest();
+    xhr.open("DELETE", `http://127.0.0.1:5000/api/v1/data/${file_id}`);
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+  
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        const response = JSON.parse(xhr.responseText);
+        console.log(response);
+      } else {
+        console.error("Delete failed. Error code: " + xhr.status);
+      }
+    };
+  
+    xhr.send(formData);
+  }
+  $("#convert-button").on("click", () => {
+  google.charts.load('current', {'packages':['corechart']});
+
+  google.charts.setOnLoadCallback(() => {
+      // Make the API call to get data
+      const formData = new FormData();
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", `http://127.0.0.1:5000/api/v1/data/${file_id}`);
+      xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+    
+      xhr.onload = function () {
+          if (xhr.status === 200) {
+              const response = JSON.parse(xhr.responseText);
+              console.log(response);
+              drawChart(response); // Pass the response data to the drawChart function
+          } else {
+              console.error("Request failed. Error code: " + xhr.status);
+          }
+      };
+    
+      xhr.send(formData);
+  });
+  
+  function drawChart(data) {
+      // Create the data table.
+      var dataTable = new google.visualization.DataTable();
+      dataTable.addColumn('number', 'Distance to Station (meters)');
+      dataTable.addColumn('number', 'House Age (years)');
+      dataTable.addColumn('number', 'Price per Square Foot');
+  
+      // Add rows from the parsed data
+      data.forEach((row) => {
+          const distance = row['Distance to Station (meters)'] || 0;
+          const age = row['House Age (years)'] || 0;
+          const pricePerSquareFoot = row['Price per Square Foot'] || 0;
+          dataTable.addRow([distance, age, pricePerSquareFoot]);
+      });
+  
+      var options = {
+          'title': 'House Data Scatter Plot',
+          'width': 680,
+          'height': 280,
+          'chartArea': {left: 60, top: 40, width: '80%', height: '70%'},
+          'legend': 'none', // Remove legend for simplicity
+          'pointSize': 8, // Adjust the size of data points
+      };
+  
+      // Instantiate and draw the chart
+      
+          var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+          chart.draw(dataTable, options);
+        }
+  });
+  </script> {% endblock %}
