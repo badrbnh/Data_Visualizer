@@ -16,7 +16,7 @@ def inside():
     if current_user.is_anonymous:
         return redirect(url_for('login'))
     data = db_storage.all(Data)
-    return render_template('inside.html', user_id=current_user.id, data=data)
+    return render_template('inside.html', data=data)
 
 @app.route('/' , methods=['GET', 'POST'])
 @app.route('/home', methods=['GET'], strict_slashes=False)

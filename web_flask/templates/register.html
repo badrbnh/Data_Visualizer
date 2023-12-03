@@ -1,41 +1,41 @@
-{% extends "base.html" %} {% block content %}
-<div class="container">
-  <div class="title">Register</div>
-  <div class="content">
-    <form action="" method="post">
-      {{ form.hidden_tag() }}
-      <div class="user-details">
-        <div class="input-box">
-          <span class="details">{{ form.username.label }}<br /></span>
-          {{ form.username(size=32) }}<br />
-          {% for error in form.username.errors %}
-          <span style="color: red">[{{ error }}]</span>
-          {% endfor %}
+{% extends "base.html" %}
+{% block content %}
+<div class="register-page">
+    <div class="register-form-container">
+        <div class="register-img">
+            <div class="register-img-cont">
+            <img src="../static/resources/registerImg.png">
+            </div>
+          </div>
+        <div class="register-container">
+            <h2>Register</h2>
+            <div class="content">
+            <form action="{{ url_for('register') }}" method="post">
+                {{ form.csrf_token }}
+                <div class="form-floating mb-3 mt-3">
+                {{ form.username(class_="form-control", id="floatingInput", placeholder="Username") }}
+                <label for="floatingInput">Username</label>
+                </div>
+                <div class="form-floating mb-0">
+                {{ form.email(class_="form-control", id="floatingInput", placeholder="name@example.com") }}<br />
+                <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating mb-3 mt-0">
+                {{ form.password(class_="form-control", id="floatingPassword", placeholder="Password") }}
+                <label for="floatingPassword">Password</label>
+                </div>
+                <div class="form-floating mb-0">
+                    {{ form.password2(class_="form-control", id="floatingPassword2", placeholder="Password") }}<br />
+                    <label for="floatingPassword2">Confirm Password</label>
+                </div>
+                {{ form.submit(class="btn btn-secondary") }}
+            </form>
+            </div>
+            <div>
+                <h4>Already have an account?</4>
+                <a href="{{ url_for("login") }}">Sign in</a>
+            </div>
         </div>
-        <div class="input-box">
-          <span class="details">{{ form.email.label }}<br /></span>
-          {{ form.email(size=64) }}<br />
-          {% for error in form.email.errors %}
-          <span style="color: red">[{{ error }}]</span>
-          {% endfor %}
-        </div>
-        <div class="input-box">
-          <span class="details">{{ form.password.label }}<br /></span>
-          {{ form.password(size=32) }}<br />
-          {% for error in form.password.errors %}
-          <span style="color: red">[{{ error }}]</span>
-          {% endfor %}
-        </div>
-        <div class="input-box">
-          <span class="details">{{ form.password2.label }}<br /></span>
-          {{ form.password2(size=32) }}<br />
-          {% for error in form.password2.errors %}
-          <span style="color: red">[{{ error }}]</span>
-          {% endfor %}
-        </div>
-      </div>
-        <div class="register-btn">{{ form.submit() }}</div>
-    </form>
-  </div>
+    </div>
 </div>
 {% endblock %}

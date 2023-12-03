@@ -8,14 +8,15 @@
 }
 
 body {
-  height: 90vh;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.750) !important;
+  height: 100vh;
 }
 .home-container {
   height: 100%;
   display: flex;
   justify-content: center;
+  border-bottom: 4px black solid;
+  background: #22333b;
   align-items: center;
   color: white;
 }
@@ -60,4 +61,99 @@ body {
 .img img {
   width: 700px;
   height: auto;
+}
+
+#abour {
+  display: flex;
+  flex-direction: column;
+}
+#first-about-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background: white;
+}
+#first-about-container .first-about-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 54%;
+  height: 92%;
+  border-radius: 26% 74% 49% 51% / 7% 44% 56% 93% ;
+  background: #447187;
+
+}
+#first-about-container .first-about-left h1 {
+  width: 440px;
+  font-size: 46px;
+  font-weight: bold;
+  margin-bottom: 36px;
+
+}
+#first-about-container .first-about-left p {
+  width: 440px;
+  font-size: 28px;
+  line-height: 32px;
+  font-weight: normal;
+
+}
+#first-about-container .first-about-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+#first-about-container .first-about-right img {
+  width: 660px;
+  height: 660px;
+}
+
+.second-about-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 100%;
+  width: 100%;
+  background: #447187;
+}
+.second-about-container .second-about-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+}
+.second-about-container .second-about-right h1 {
+  width: 440px;
+  font-size: 46px;
+  font-weight: bold;
+  margin-bottom: 36px;
+
+}
+.second-about-container .second-about-right p {
+  width: 440px;
+  font-size: 28px;
+  line-height: 32px;
+  font-weight: normal;
+
+}
+.second-about-container .second-about-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 54%;
+  height: 92%;
+  border-radius: 50% 50% 42% 58% / 88% 17% 83% 12%  ;
+  background: white;
+}
+
+.second-about-container .second-about-left img {
+  width: 480px;
+  height: 480px;
 }

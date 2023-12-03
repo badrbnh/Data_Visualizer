@@ -3,16 +3,17 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  display: flex;
   margin: auto;
+  background: #22333b;
 }
+
 .hero-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  background: #cce1f9;
-  height: 640px;
-  width: 800px;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
   border-radius: 8px;
 }
 
@@ -20,6 +21,7 @@
   margin: 24px 0;
   text-align: center;
 }
+
 #img-view {
   width: 680px;
   height: 200px;
@@ -42,42 +44,49 @@
   font-weight: normal;
   margin-bottom: 0;
 }
+
 .upload-span {
   border-bottom: black solid 1px;
   font-weight: bold;
 }
 
-.btn {
-  margin-bottom: 12px;
-}
-
 .history {
   background: #cce1f9;
   width: 240px;
-  height: 640px;
-  margin: 0 20px;
+  height: 610px;
+  margin: 24px 20px 0;
   border-radius: 8px;
 }
+
 .options-container {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
+
 .file-container {
-    width: 280px;
-    border: 1px solid black;
+  display: flex;
+  align-items: center;
+  width: 280px;
+  border: 1px solid black;
   border-radius: 4px;
   margin: 4px;
+}
+
+.file-container p {
+  margin-bottom: 0;
 }
 
 .file-container img {
   width: 32px;
 }
+
 .file-container:hover {
   cursor: pointer;
   background: #a4c4f3;
 }
-
 .options {
+  display: flex;
+  flex-direction: column-reverse;
   max-height: 640px;
   overflow-y: auto;
 }
@@ -89,16 +98,33 @@
   max-width: 150px;
 }
 
-.delete-file{
-    margin-right: 4px;
-    border: 1px solid black;
-    border-radius: 4px;
+.delete-file {
+  display: flex;
+  align-items: center;
+  margin: 4px;
+  border: 1px solid black;
+  border-radius: 4px;
+  background: #e447479b;
 }
 
-.delete-file img{
-    width: 32px;
+.delete-file p {
+  margin-bottom: 0;
+  font-weight: bold;
+  margin-left: 4px;
 }
+.delete-file img {
+  width: 32px;
+}
+
 .delete-file:hover {
-    cursor: pointer;
-    background-color: #e447479b;
+  cursor: pointer;
+  background-color: #e447479b;
+}
+
+.chart-container {
+  background: #a4c4f3;
+  width: 680px;
+  height: 320px;
+  margin-top: 26px;
+  border-radius: 8px;
 }

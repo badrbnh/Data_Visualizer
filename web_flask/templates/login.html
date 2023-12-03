@@ -1,34 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="login-page">
-  <div class="login-container" id="container">
-    <div class="form-container log-in-container">
-      <div class="login-title"><h1>Welcome back!</h1></div>
-      <div class="login-form">
-        <form action="" method="post" novalidate class="form-class">
-          {{ form.hidden_tag() }}
-          {{ form.username(size=32, class="form-input", placeholder="username") }}
-          {{ form.password(size=32, class="form-input", placeholder="password", style="margin-bottom: 0") }}
-          <div class="login-api">
-            <div id="github-api" onclick="loginGithub()">
-              <img src="../static/resources/githubIcon.png" class='github-icon'>
-            </div>
-            <div id="gSignInWrapper">
-            </div>
-          </div>
-          <div style="margin: 10px;">
-            {{ form.remember_me() }} {{ form.remember_me.label }}
-          </div>
-          {{ form.submit(class="login-btn") }}
-        </form>
+  <div class="login-form-container">
+    <div class="login-container">
+      <h2>Welcome back!</h2>
+      <form action="" method="post" novalidate>
+        <div  class="form-floating mb-3">
+        {{ form.hidden_tag() }}
+        {{ form.username(type="Username", class="form-control", id="floatingInput", placeholder="username") }}
+        <label for="floatingInput">Username</label>
+        </div>
+        <div class="form-floating">
+          {{ form.password(type="password", class="form-control", id="floatingPassword", placeholder="Password") }}
+          <label for="floatingPassword">Password</label>
+        </div>
+        <div class="form-check form-switch">
+          {{ form.remember_me(class="form-check-input", type="checkbox", id="flexSwitchCheckDefault") }}
+          <label class="form-check-label" for="flexSwitchCheckDefault"> {{ form.remember_me.label }}</label>
+        </div>
+        {{ form.submit(class="btn btn-secondary") }}
+      </form>
+      <div class="no-acc">
+        <h4>Don't have an account?</4>
+        <a href="{{ url_for("register") }}">Create an account</a>
       </div>
     </div>
-    <div class="overlay-container">
-      <div class="overlay">
-        <div class="overlay-panel overlay-right">
-          <h1>Join us</h1>
-          <p>Access the Future: Unleashing Data Insights</p>
-        </div>
+    <div class="login-img">
+      <div class="login-img-cont">
+      <img src="../static/resources/loginImg.png">
       </div>
     </div>
   </div>
