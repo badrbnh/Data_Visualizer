@@ -4,6 +4,16 @@ from models.data import Data
 from models import db_storage
 import pandas as pd
 import os
+@app_views.route("/data", methods=['POST', 'GET'], strict_slashes=False)
+def get_all_data():
+    """Retrieve all files."""
+    data = db_storage.all(Data)
+    files = []
+    for file in data.values():
+        files.append(file.to_dict())
+    return jsonify(files)
+    
+    
 
 @app_views.route("/data/<file_id>", methods=['POST', 'GET'], strict_slashes=False)
 def get_data(file_id):

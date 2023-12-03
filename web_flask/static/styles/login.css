@@ -3,151 +3,64 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.login-title {
-  height: 50px;
-  width: 100%;
-  margin: 50px;
+  background: #22333b;
 }
 
-h1 {
-  font-weight: bold;
-  font-size: 35px;
+.login-form-container {
+  display: flex;
+  border-radius: 8px;
+  background: white;
+  height: 460px;
+  width: 820px;
 }
-
-p {
-  font-size: 14px;
-  font-weight: 100;
-  line-height: 20px;
-  letter-spacing: 0.5px;
-}
-
-.login-btn {
-  border-radius: 20px;
-  border: 1px solid #ff4b2b;
-  background-color: #ff4b2b;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 12px 45px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: transform 80ms ease-in;
-  cursor: pointer;
-}
-
-.form-input {
-  background-color: #eee;
-  border: none;
-  padding: 12px 15px;
-  margin: 8px 0;
-  width: 100%;
-}
-
 .login-container {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  position: relative;
-  overflow: hidden;
-  width: 768px;
-  max-width: 100%;
-  min-height: 480px;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-.login-form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-}
-.form-container {
+  width: 380px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  position: absolute;
-  background-color: #ffffff;
-  padding: 0 50px;
-  height: 100%;
+  margin: 38px;
 }
-
-.log-in-container {
-  left: 0;
-  width: 50%;
-  z-index: 2;
+.login-container h2 {
+  width: 320px;
+  font-weight: bold;
+  font-size: 28px;
+  margin: 0 0 38px;
 }
-
-.overlay-container {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 50%;
-  height: 100%;
-}
-
-
-.login-api {
+.login-container form{
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
-  gap: 14px;
-}
-
-.github-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-}
-
-.github-icon:hover {
-  cursor: pointer;
-}
-
-.overlay {
-  background: #ff416c;
-  background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
-  background: linear-gradient(to right, #ff4b2b, #ff416c);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 0 0;
-  color: #ffffff;
-  position: relative;
-  left: -100%;
-  height: 100%;
-  width: 200%;
-}
-
-.overlay-panel {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-  padding: 0 40px;
-  text-align: center;
-  top: 0;
+}
+
+.login-container form img {
+  width: 38px;
+  height: auto;
+}
+
+.login-container .form-check {
+  margin: 16px 0;
+}
+.login-container h4 {
+  font-size: 12px;
+  font-weight: normal;
+  margin-top: 16px;
+}
+.login-container a {
+  color: blue;
+  text-decoration: none;
+}
+.login-img {
+  background: #608f8f;
+  width: 100%;
   height: 100%;
-  width: 50%;
+  border-radius: 8px;
 }
 
-.overlay-right {
-  right: 0;
+.login-img h2 {
+  font-weight: bold;
+  font-size: 28px;
+  
 }
 
-.social-container {
-  margin: 50px 0;
-}
-
-.social-container a {
-  border: 1px solid #dddddd;
-  border-radius: 50%;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 5px;
-  height: 40px;
-  width: 40px;
+.login-img img {
+  width: 430px;
+  height: 430px;
 }

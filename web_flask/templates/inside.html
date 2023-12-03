@@ -40,31 +40,34 @@
       </label>
       <div>
         <div class="d-grid gap-2">
-          <input id="upload-button" type="button" class="btn btn-primary" value="Upload" />
+          <input id="upload-button" type="button" class="btn btn-secondary" value="Upload" />
         </div>
         <div class="d-grid gap-2">
-          <input id="convert-button" type="button" class="btn btn-primary btn-success" value="Convert" hidden />
+          <input id="convert-button" type="button" class="btn btn-success" value="Convert" hidden />
+        </div>
+      </div>
+      <div class="hero-chart-container">
+        <div class="chart-container">
+          <div id="chart_div"></div>
         </div>
       </div>
     </form>
-    <div id="chart_div"></div>
-  </div>
-  <div class="history">
-    <div class="custom-select">
+    <div class="history">
       <div class="options">
-        {% for i in data.values() %}
-        {% if current_user.id == user_id %}
-        <div class="options-container">
-          <div class="file-container" data-file-name="{{ i.file_name }}" data-file-id="{{ i.id }}" onclick="toggleButtonFiles(this)">
-            <img src="../static/resources/excelIcon.png">
-            <span class="data-option">{{ i.file_name }}</span>
+          {% for i in data.values() %}
+          {% if current_user.id == i.user_id %}
+          <div class="options-container">
+            <div class="file-container" data-file-name="{{ i.file_name }}" data-file-id="{{ i.id }}" onclick="toggleButtonFiles(this)">
+              <img src="../static/resources/excelIcon.png">
+              <span class="data-option">{{ i.file_name }}</span>
+            </div>
           </div>
+          {% endif %}
+          {% endfor %}
           <div class="delete-file" onclick="deleteFile()">
             <img src="../static/resources/deleteIcon.png">
+            <p>Delete File</p>
           </div>
-        </div>
-        {% endif %}
-        {% endfor %}
       </div>
     </div>
   </div>
@@ -102,27 +105,38 @@
   function toggleButtonFiles(element) {
     const uploadButton = document.getElementById("upload-button");
     const convertButton = document.getElementById("convert-button");
-    const fileContainer = element;
+    const fileContainers = document.querySelectorAll(".file-container");
     const selectedFile = document.getElementById("selected-file");
     const selectedFileNameElement = selectedFile.querySelector(".upload-span");
-
-    fileName = fileContainer.dataset.fileName; // Retrieve the file name from the data attribute
-    file_id = fileContainer.dataset.fileId;
-
-    if (selectedFileNameElement.textContent === fileName) {
-      uploadButton.hidden = !uploadButton.hidden;
-      convertButton.hidden = !convertButton.hidden;
-      fileContainer.style.background = "";
+  
+    const clickedFileContainer = element;
+    const clickedFileName = clickedFileContainer.dataset.fileName;
+    const clickedFileId = clickedFileContainer.dataset.fileId;
+  
+    if (selectedFileNameElement.textContent === clickedFileName) {
+      // Clicked on the same file, unselect it
+      uploadButton.hidden = false;
+      convertButton.hidden = true;
+      clickedFileContainer.style.background = "";
       contentView.style.display = "block";
       selectedFile.style.display = "none";
       selectedFileNameElement.textContent = "";
     } else {
-      uploadButton.hidden = true;
-      convertButton.hidden = false;
-      fileContainer.style.background = "#a4c4f3";
-      contentView.style.display = "none";
-      selectedFile.style.display = "block";
-      selectedFileNameElement.textContent = fileName;
+      // Clicked on a different file, update selection
+      for (const fileContainer of fileContainers) {
+        fileContainer.style.background = "";
+        uploadButton.hidden = true;
+        convertButton.hidden = false;
+        clickedFileContainer.style.background = "#a4a4a4";
+        contentView.style.display = "none";
+        selectedFile.style.display = "block";
+        selectedFileNameElement.textContent = clickedFileName;
+      }
+  
+  
+      // Update the selected file and its ID
+      fileName = clickedFileName;
+      file_id = clickedFileId;
     }
   }
 
@@ -133,7 +147,7 @@
   if (file) {
   const formData = new FormData();
   formData.append("file", file);
-  formData.append("user_id", "{{ user_id }}");
+  formData.append("user_id", "{{ current_user.id }}");
   
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "http://127.0.0.1:5000/api/v1/upload");
@@ -145,7 +159,7 @@
         contentView.style.display = "none";
         inputFile.setAttribute("disabled", "disabled");
         document.getElementById("success-upload").style.display = "block";
-        toggleButton();
+        location.reload();
         console.log(response);
       } else {
         contentView.style.display = "none";
@@ -167,6 +181,7 @@
     xhr.onload = function () {
       if (xhr.status === 200) {
         const response = JSON.parse(xhr.responseText);
+        location.reload();
         console.log(response);
       } else {
         console.error("Delete failed. Error code: " + xhr.status);
@@ -197,7 +212,7 @@
     
       xhr.send(formData);
   });
-  
+
   function drawChart(data) {
       // Create the data table.
       var dataTable = new google.visualization.DataTable();
@@ -216,7 +231,7 @@
       var options = {
           'title': 'House Data Scatter Plot',
           'width': 680,
-          'height': 280,
+          'height': 320,
           'chartArea': {left: 60, top: 40, width: '80%', height: '70%'},
           'legend': 'none', // Remove legend for simplicity
           'pointSize': 8, // Adjust the size of data points
