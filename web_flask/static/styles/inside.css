@@ -61,12 +61,13 @@
 .options-container {
   display: flex;
   align-items: center;
+  flex-direction: column;
 }
 
 .file-container {
   display: flex;
   align-items: center;
-  width: 280px;
+  width: 232px;
   border: 1px solid black;
   border-radius: 4px;
   margin: 4px;
