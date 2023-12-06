@@ -54,16 +54,10 @@
     </form>
     <div class="history">
       <div class="options">
-          {% for i in data.values() %}
-          {% if current_user.id == i.user_id %}
-          <div class="options-container">
-            <div class="file-container" data-file-name="{{ i.file_name }}" data-file-id="{{ i.id }}" onclick="toggleButtonFiles(this)">
-              <img src="../static/resources/excelIcon.png">
-              <span class="data-option">{{ i.file_name }}</span>
-            </div>
-          </div>
-          {% endif %}
-          {% endfor %}
+        <div class="options-container" id="options-container">
+          <!-- This div will be dynamically populated with file containers -->
+        </div>
+        
           <div class="delete-file" onclick="deleteFile()">
             <img src="../static/resources/deleteIcon.png">
             <p>Delete File</p>
@@ -150,7 +144,7 @@
   formData.append("user_id", "{{ current_user.id }}");
   
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://127.0.0.1:5000/api/v1/upload");
+    xhr.open("POST", "http://52.23.245.155/api/v1/upload");
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
   
     xhr.onload = function () {
@@ -175,7 +169,7 @@
   function deleteFile() {
     const formData = new FormData();
     const xhr = new XMLHttpRequest();
-    xhr.open("DELETE", `http://127.0.0.1:5000/api/v1/data/${file_id}`);
+    xhr.open("DELETE", `http://52.23.245.155/api/v1/data/${file_id}`);
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
   
     xhr.onload = function () {
@@ -190,6 +184,59 @@
   
     xhr.send(formData);
   }
+
+  function retrieveData() {
+    // Make the API call to get all data
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", `http://52.23.245.155/api/v1/data`);
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+  
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        const response = JSON.parse(xhr.responseText);
+        displayData(response); // Call a function to display the data
+        console.log(response);
+      } else {
+        console.error("Request failed. Error code: " + xhr.status);
+      }
+    };
+  
+    xhr.send();
+  }
+
+  function displayData(data) {
+    // Assuming data is an array of files with 'file_name' property
+    const optionsContainer = document.querySelector('.options');
+  
+    // Clear existing content
+    optionsContainer.innerHTML = '';
+  
+    // Iterate through the data and create file containers
+    data.forEach(file => {
+      const optionsContainer = document.querySelector('.options-container');
+      const fileContainer = document.createElement('div');
+      fileContainer.classList.add('file-container');
+      fileContainer.dataset.fileName = file.file_name;
+      fileContainer.dataset.fileId = file.id;
+      fileContainer.onclick = function() {
+        toggleButtonFiles(this);
+      };
+  
+      const img = document.createElement('img');
+      img.src = '../static/resources/excelIcon.png';
+  
+      const span = document.createElement('span');
+      span.classList.add('data-option');
+      span.textContent = file.file_name;
+  
+      fileContainer.appendChild(img);
+      fileContainer.appendChild(span);
+      optionsContainer.appendChild(fileContainer);
+    });
+  }
+  
+  // Call retrieveData() when needed, for example, when the page loads
+  retrieveData();
   $("#convert-button").on("click", () => {
   google.charts.load('current', {'packages':['corechart']});
 
@@ -197,7 +244,7 @@
       // Make the API call to get data
       const formData = new FormData();
       const xhr = new XMLHttpRequest();
-      xhr.open("GET", `http://127.0.0.1:5000/api/v1/data/${file_id}`);
+      xhr.open("GET", `http://52.23.245.155/api/v1/data/${file_id}`);
       xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
     
       xhr.onload = function () {

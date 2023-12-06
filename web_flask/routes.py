@@ -15,8 +15,7 @@ app.config['SECRET_KEY'] = 'you-will-never-guess'
 def inside():
     if current_user.is_anonymous:
         return redirect(url_for('login'))
-    data = db_storage.all(Data)
-    return render_template('inside.html', data=data)
+    return render_template('inside.html')
 
 @app.route('/' , methods=['GET', 'POST'])
 @app.route('/home', methods=['GET'], strict_slashes=False)
