@@ -194,9 +194,9 @@
   }
 
   function retrieveData() {
-    // Make the API call to get all data
+    // Make the API call to get current user's data
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", `http://52.23.245.155/api/v1/data`);
+	  xhr.open("GET", `http://52.23.245.155/api/v1/data/user/{{ current_user.id }}`);
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
     xhr.onload = function () {

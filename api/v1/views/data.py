@@ -13,7 +13,18 @@ def get_all_data():
         files.append(file.to_dict())
     return jsonify(files)
     
-    
+@app_views.route("/data/user/<user_id>", methods=["POST", "GET"], strict_slashes=False)
+def get_user_data(user_id):
+    """Retrive data of a specific user"""
+    data = db_storage.all(Data)
+    content = []
+    for obj in data.values():
+        if obj.user_id == user_id:
+            content.append(obj.to_dict())
+    if content:
+        return jsonify(content)
+    else:
+        abort(404)
 
 @app_views.route("/data/<file_id>", methods=['POST', 'GET'], strict_slashes=False)
 def get_data(file_id):
