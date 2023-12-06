@@ -15,8 +15,7 @@ app.config['SECRET_KEY'] = 'you-will-never-guess'
 def inside():
     if current_user.is_anonymous:
         return redirect(url_for('login'))
-    data = db_storage.all(Data)
-    return render_template('inside.html', data=data)
+    return render_template('inside.html')
 
 @app.route('/' , methods=['GET', 'POST'])
 @app.route('/home', methods=['GET'], strict_slashes=False)
@@ -53,9 +52,7 @@ def login():
             if user.username == form.username.data and user.check_password(form.password.data):
                 login_user(user, remember=form.remember_me.data)
                 return redirect(url_for('inside', username=user.username))
-
-        flash('Invalid username or password', 'error')
-        return redirect(url_for('login'))
+            flash('Invalid username or password', 'error')      
     return render_template('login.html', form=form)
 
 @app.route('/logout', methods=['GET', 'POST'], strict_slashes=False)
