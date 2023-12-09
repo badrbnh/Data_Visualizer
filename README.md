@@ -28,7 +28,7 @@ Data Visualizer is a powerful and user-friendly platform designed to turn your r
 - **Additional Tools:** Pandas (for data processing)
 
 ## How to use
-LOADING...
+URL: http://www.chi-kara.tech/home
 
 
 ## Contributors
