@@ -146,7 +146,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
   width: 54%;
   height: 92%;
   border-radius: 50% 50% 42% 58% / 88% 17% 83% 12%  ;
@@ -160,8 +159,7 @@ body {
 
 #features-container h1 {
   display:inline-block;
-  margin: 28px 0;
-  margin-left: 38px;
+  margin: 28px 0 0 32px;
 }
 
 #features-container h1:after {
@@ -200,4 +198,55 @@ body {
   width: 360px;
   height: 260px;
   margin: 8px 0;
+}
+
+@media only screen and  (max-width: 400px) {
+  .home-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    margin: 0;
+  }
+   .home-container .left-half {
+     display: flex;
+    align-items: center;
+    justify-content: center;
+     margin: 0;
+
+   }
+  .home-container .left-half h1{
+    font-size: 28px;
+  }
+
+  .home-container .left-half p {
+    font-size: 18px;
+  }
+
+  .home-container .left-half .btn {
+    margin: 14px 0;
+  }
+  .home-container .right-half {
+    display: none;
+  }
+
+  #first-about-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    margin: 0;
+  }
+  #first-about-container .first-about-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: unset;
+  }
+  #first-about-container .first-about-left h1{
+    font-size: 28px;
+  }
+  #first-about-container .first-about-left p {
+    font-size: 18px;
+  }
 }
