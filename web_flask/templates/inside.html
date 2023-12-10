@@ -152,7 +152,7 @@
       formData.append("user_id", "{{ current_user.id }}");
 
       const xhr = new XMLHttpRequest();
-      xhr.open("POST", "http://52.23.245.155/api/v1/upload");
+      xhr.open("POST", "//www.chi-kara.tech/api/v1/upload");
       xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
       xhr.onload = function () {
@@ -177,7 +177,7 @@
   function deleteFile() {
     const formData = new FormData();
     const xhr = new XMLHttpRequest();
-    xhr.open("DELETE", `http://52.23.245.155/api/v1/data/${file_id}`);
+    xhr.open("DELETE", `//www.chi-kara.tech/api/v1/data/${file_id}`);
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
     xhr.onload = function () {
@@ -196,7 +196,7 @@
   function retrieveData() {
     // Make the API call to get current user's data
     const xhr = new XMLHttpRequest();
-	  xhr.open("GET", `http://52.23.245.155/api/v1/data/user/{{ current_user.id }}`);
+	  xhr.open("GET", `//www.chi-kara.tech/api/v1/data/user/{{ current_user.id }}`);
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
     xhr.onload = function () {
@@ -251,7 +251,7 @@
       // Make the API call to get data
       const formData = new FormData();
       const xhr = new XMLHttpRequest();
-      xhr.open("GET", `http://52.23.245.155/api/v1/data/${file_id}`);
+      xhr.open("GET", `//www.chi-kara.tech/api/v1/data/${file_id}`);
       xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
       xhr.onload = function () {
