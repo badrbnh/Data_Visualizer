@@ -64,3 +64,45 @@
   width: 430px;
   height: 430px;
 }
+
+@media only screen and (max-width: 500px) {
+  .login-form-container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    height:660px;
+  }
+  .login-form-container .login-container {
+    width: 200px;
+    height: 560px;
+    margin-top: 24px;
+  }
+  .login-form-container .login-container h2{
+    font-size: 24px;
+    width: 200px;
+    margin-bottom: 16px;
+  }
+  .login-form-container .login-container form {
+    height: 200px;
+    gap: 16px;
+  }
+  .login-form-container .login-container .form-floating{
+    width: 200px;
+    height: 36px;
+    margin-bottom: 8px;
+  }
+  .login-form-container .login-container .form-check {
+    margin: 0;
+  }
+  .login-form-container .login-img {
+    width: unset;
+    height: unset;
+  }
+  .login-form-container .login-img-cont img {
+    width: 320px;
+    height: 320px;
+  }
+
+}

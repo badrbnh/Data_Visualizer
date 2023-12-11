@@ -84,3 +84,10 @@ header {
 .sub-menu-link:hover p {
   font-weight: 600;
 }
+
+@media only screen and (max-width: 500px) {
+
+  .collapse .btn {
+    margin: 12px 0;
+  }
+}

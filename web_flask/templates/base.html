@@ -51,10 +51,11 @@
             DataVizHub
           </a>
           {% endif %}
+          {% if current_user.is_anonymous %}
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          {% if current_user.is_anonymous %}
+          <div class="collapse navbar-collapse" id="navbarNav">
           <div class="navbar-nav">
             <a class="nav-link active" aria-current="page" href="{{ url_for("home") }}">Home</a>
             <a class="nav-link" href="#first-about-container">About</a>
@@ -62,6 +63,7 @@
           </div>
           <div class="btn btn-light">
             <a href="{{ url_for("login") }}">Sign in</a>
+          </div>
           </div>
           {% else %}
           <img
