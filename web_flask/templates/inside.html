@@ -56,6 +56,16 @@
           />
         </div>
       </div>
+      <div class="mb-history">
+        <div class="options">
+          <div class="options-container" id="mb-options-container">
+            <!-- This div will be dynamically populated with file containers -->
+          </div>
+          <div class="delete-file" onclick="deleteFile()">
+            <img src="../static/resources/deleteIcon.png" />
+          </div>
+        </div>
+      </div>
       <div class="hero-chart-container">
         <div class="chart-container">
           <div id="chart_div"></div>
@@ -213,11 +223,12 @@
   }
 
   function displayData(data) {
-    // Assuming data is an array of files with 'file_name' property
     const optionsContainer = document.getElementById("options-container");
+    const mbOptionsContainer = document.getElementById("mb-options-container");
 
     // Clear existing content
     optionsContainer.innerHTML = "";
+    mbOptionsContainer.innerHTML = "";
 
     // Iterate through the data and create file containers
     data.forEach((file) => {
@@ -238,7 +249,14 @@
 
       fileContainer.appendChild(img);
       fileContainer.appendChild(span);
-      optionsContainer.appendChild(fileContainer);
+
+      if (window.innerWidth < 400) {
+        // Mobile version
+        mbOptionsContainer.appendChild(fileContainer);
+      } else {
+        // Desktop version
+        optionsContainer.appendChild(fileContainer);
+      }
     });
   }
   // Your script here
