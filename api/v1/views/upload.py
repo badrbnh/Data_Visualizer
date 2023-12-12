@@ -7,7 +7,8 @@ from werkzeug.utils import secure_filename
 from models.data import Data
 
 ALLOWED_EXTENSIONS = {'xls', 'xlsx', 'csv'}
-UPLOAD_FOLDER = '/home/ubuntu/Data_Visualizer/data/dr'
+UPLOAD_FOLDER = '/home/chikara/Programming/Projects/Data_Visualizer/data/dr'
+
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def allowed_file(filename):

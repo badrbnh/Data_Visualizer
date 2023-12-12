@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="profile-cont">
+    <div class="edit-cont">
+        <div class="edit-img">
+            <div class="profile-img">
+                <img src="../static/resources/editProfile.svg" alt="profile image">
+            </div>
+            <div class="img-label">
+                <h3>Change Profile Picture</h3>
+                <p>Be yourself and join us</p>
+            </div>
+        </div>
+        <div class="edit-info">
+            <form action="" method="post" novalidate>
+                <div  class="form-floating mb-3" id="floating-cont" userId="{{ current_user.id }}">
+                    {{ form.hidden_tag() }}
+                    {{ form.username(type="Username", class="form-control", id="floatingInput", placeholder="username") }}
+                    <label for="floatingInput" id="username">Username</label>
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.email(class_="form-control", id="floatingEmail", placeholder="name@example.com") }}
+                    <label for="floatingEmail" id="email">Email address</label>
+                </div>
+                <div class="form-floating">
+                    {{ form.password(type="password", class="form-control", id="floatingPassword", placeholder="Password") }}
+                    <label for="floatingPassword" id="password">Password</label>
+                </div>
+                <div class="edit-confirm">
+                <button class="btn btn-secondary">Edit</button>
+                {{ form.submit(class="btn btn-success") }}
+                <button class="btn btn-danger">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

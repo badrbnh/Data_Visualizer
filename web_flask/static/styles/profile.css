@@ -1,0 +1,76 @@
+.profile-cont {
+    padding: 64px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-cont {
+    display: flex;
+    flex-direction: row;
+    width: 800px;
+    height: 600px;
+    background: #cccccc;
+    border-radius: 8px;
+}
+
+.edit-img {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #608f8f;
+    width: 360px;
+    height: 100%;
+}
+
+.profile-img {
+    background: #cccccc;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 36px;
+}
+.profile-img img {
+    width: 120px;
+    height: 120px;
+}
+
+.img-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 42px 0;
+}
+.img-label h3{
+    color: black;
+    font-size: 24px;
+    margin: 8px 0;
+}
+.edit-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 440px;
+    height: 100%;
+}
+
+.edit-info .form-floating {
+    width: 400px;
+    margin: 36px 0;
+}
+
+.edit-confirm {
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+}
+
+.edit-confirm .btn {
+    width: 74px;
+}

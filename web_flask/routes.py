@@ -5,7 +5,7 @@ from models.register import AddUser
 from models.login import LoginForm
 from models import db_storage
 from models.user import User
-from models.data import Data
+from models.profile import ProfileForm
 import os
 from web_flask import app
 
@@ -13,6 +13,7 @@ app.config['SECRET_KEY'] = 'you-will-never-guess'
 
 @app.route('/inside', methods=['GET'])
 def inside():
+    """route for inside of the app"""
     if current_user.is_anonymous:
         return redirect(url_for('login'))
     return render_template('inside.html')
@@ -20,6 +21,7 @@ def inside():
 @app.route('/' , methods=['GET', 'POST'])
 @app.route('/home', methods=['GET'], strict_slashes=False)
 def home():
+    """route for home page"""
     return render_template('home.html')
 
 @app.route('/register', methods=['GET', 'POST'], strict_slashes=False)
@@ -42,6 +44,7 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'], strict_slashes=False)
 def login():
+    """route for user login"""
     if current_user.is_authenticated:
         return redirect(url_for('inside'))
 
@@ -57,8 +60,15 @@ def login():
 
 @app.route('/logout', methods=['GET', 'POST'], strict_slashes=False)
 def logout():
+    """allow user to logout"""
     logout_user()
     return redirect(url_for('login'))
+
+@app.route('/edit', methods=['GET', 'POST'], strict_slashes=False)
+def edit():
+    """endpoint for editing profile"""
+    form = ProfileForm()
+    return render_template('profile.html', form=form)
 
 
 if __name__ == '__main__':
