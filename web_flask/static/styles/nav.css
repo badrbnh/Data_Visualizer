@@ -91,3 +91,10 @@ header {
     margin: 12px 0;
   }
 }
+
+@media only screen and (min-width: 501px) and (max-width: 800px){
+
+  .collapse .btn {
+    margin: 12px 0;
+  }
+}

@@ -304,3 +304,108 @@ body {
   }
 
 }
+
+@media only screen and  (min-width: 501px) and (max-width: 800px){
+  .home-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    margin: 0;
+  }
+  .home-container .left-half {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+
+  }
+  .home-container .left-half h1{
+    font-size: 28px;
+  }
+
+  .home-container .left-half p {
+    font-size: 18px;
+  }
+
+  .home-container .left-half .btn {
+    margin: 14px 0;
+  }
+  .home-container .right-half {
+    display: none;
+  }
+
+  #first-about-container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    height: 64vh;
+    margin: 0;
+    padding: 12px;
+  }
+  #first-about-container .first-about-left {
+    width: 100%;
+    height: 100%;
+    background: unset;
+  }
+  #first-about-container .first-about-left h1{
+    width: unset;
+    font-size: 28px;
+  }
+  #first-about-container .first-about-left p {
+    width: unset;
+    font-size: 18px;
+    line-height: unset;
+  }
+  #first-about-container .first-about-right img {
+    width: 300px;
+    height: 300px;
+
+  }
+  .second-about-container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    height: 64vh;
+    margin: 0;
+    padding: 12px;
+  }
+  .second-about-container .second-about-left {
+    width: 100%;
+    height: 100%;
+    background: unset;
+  }
+  .second-about-container .second-about-right h1{
+    width: unset;
+    font-size: 28px;
+  }
+  .second-about-container .second-about-right p {
+    width: unset;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: unset;
+  }
+  .second-about-container .second-about-left img {
+    width: 300px;
+    height: 300px;
+
+  }
+  #features-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #features-container h1{
+    margin-left: 0;
+    margin-bottom: 12px;
+  }
+  #features-container .features{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+}
