@@ -1,11 +1,12 @@
 # app/routes.py
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, abort, jsonify, redirect, url_for, flash, request
 from flask_login import current_user, login_user, logout_user
 from models.register import AddUser
 from models.login import LoginForm
 from models import db_storage
 from models.user import User
 from models.profile import ProfileForm
+import requests
 import os
 from web_flask import app
 
@@ -64,10 +65,29 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-@app.route('/edit', methods=['GET', 'POST'], strict_slashes=False)
+@app.route('/edit', methods=['GET', 'PUT', 'POST'], strict_slashes=False)
 def edit():
     """endpoint for editing profile"""
     form = ProfileForm()
+    if form.is_submitted():
+        if form.validate_on_submit():
+            user_id = current_user.id
+            url = f"http://localhost:5000/api/v1/users/{user_id}"
+            data = {
+                "username": form.username.data,
+                "email": form.email.data,
+            }
+            if form.data is not None:
+                response = requests.put(url, json=data)
+            
+            if response.status_code == 200:
+                return redirect(url_for("edit"))
+            elif response.status_code == 404:
+                abort(404)
+            else:
+                abort(response.status_code)
+    # Remove the else statement that redirects to 'edit'
+    
     return render_template('profile.html', form=form)
 
 

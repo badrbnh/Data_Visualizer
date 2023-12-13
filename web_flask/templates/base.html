@@ -82,9 +82,9 @@
                 <img src="../static/resources/profileIcon.png" />
                 <h2>{{ current_user.username }}</h2>
               </div>
-              <a href="#" class="sub-menu-link">
+              <a  href="{{ url_for('edit') }}" class="sub-menu-link">
                 <img src="../static/resources/profileEditIcon.png" />
-                <a href="{{ url_for('edit') }}">Edit profile</a>
+                <p>Edit profile</p>
               </a>
               <a href="#" class="sub-menu-link">
                 <img src="../static/resources/settingsIcon.png" />
