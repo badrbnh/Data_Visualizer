@@ -16,7 +16,9 @@ header {
 
 #navbarNav {
   flex-grow: unset;
-  gap: 16px;
+  width: 54%;
+  justify-content: space-between;
+
 }
 
 .sub-menu-wrap {
