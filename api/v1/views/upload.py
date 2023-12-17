@@ -6,11 +6,12 @@ import os
 from werkzeug.utils import secure_filename
 from models.data import Data
 from models.img import Img
+from uuid import uuid4
 
 FILE_ALLOWED_EXTENSIONS = {'xls', 'xlsx', 'csv'}
 IMG_ALLOWED_EXTENSIONS = {'jpeg', 'jpg', 'png'}
 UPLOAD_FOLDER = '/home/chikara/Programming/Projects/Data_Visualizer/data'
-STATIC_FOLDER = '/home/chikara/Programming/Projects/Data_Visualizer/web_flask/static/resources'
+STATIC_FOLDER = '/home/chikara/Programming/Projects/Data_Visualizer/web_flask/static/resources/profileImg'
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -29,10 +30,12 @@ def upload():
     user_id = request.form.get('user_id')
 
     if allowed_file(file.filename, IMG_ALLOWED_EXTENSIONS):
-        filename = secure_filename(file.filename)
-        file_path = os.path.join(STATIC_FOLDER, filename)
+        filename = str(uuid4())
+        file_extension = file.filename.rsplit('.', 1)[1].lower()
+        filename_with_extension = filename + '.' + file_extension
+        file_path = os.path.join(STATIC_FOLDER, filename_with_extension)
         file.save(file_path)
-        img = Img(img_name=filename, user_id=user_id)
+        img = Img(img_name=filename_with_extension, user_id=user_id)
         db_storage.new(img)
         db_storage.save()
 

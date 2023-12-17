@@ -1,9 +1,9 @@
 .register-page {
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     background: #22333b;
+    height: 100%;
   }
   
   .register-form-container {
@@ -109,6 +109,9 @@
 }
 
 @media only screen and (min-width: 501px) and (max-width: 820px){
+  .register-page  {
+    height: 100%;
+  }
   .register-form-container {
     width: 600px;
     height: 480px;

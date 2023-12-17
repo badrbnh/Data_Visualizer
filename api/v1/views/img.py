@@ -25,13 +25,14 @@ def get_user_img(user_id):
     else:
         abort(404)
 
-@app_views.route("/img/<img_id>", methods=['DELETE'], strict_slashes=False)
-def delete_img(img_id):
+@app_views.route("/img/<user_id>", methods=['DELETE'], strict_slashes=False)
+def delete_img(user_id):
     """delete image of a specific user"""
-    img = db_storage.get(Img, img_id)
+    img = db_storage.all(Img)
     if not img:
         abort(404)
-    
-    db_storage.delete(img)
-    db_storage.save()
+    for obj in img.values():
+        if obj.user_id == user_id:
+            db_storage.delete(obj)
+            db_storage.save()
     return make_response(jsonify({}), 200)
