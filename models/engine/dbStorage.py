@@ -6,21 +6,22 @@ Contains the class DBStorage
 import models
 from models.user import User
 from models.data import Data
+from models.img import Img
 from models.base_model import Base
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-
-classes = {"User": User, "Data": Data}
+from dotenv import load_dotenv
+classes = {"User": User, "Data": Data, "Img": Img}
 
 class DBStorage():
     """this class stores stores data to database"""
     """interacts with the MySQL database"""
     __engine = None
     __session = None
-
+    load_dotenv()
     def __init__(self, app=None):
         """Instantiate a DBStorage object"""
         DV_MYSQL_USER = getenv('DV_MYSQL_USER')

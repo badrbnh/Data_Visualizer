@@ -16,8 +16,6 @@ class ProfileForm(FlaskForm):
         if username.data is not None:
             if len(username.data) < 1:
                 username.data = None
-        else:
-            username.data = current_user.username
         users = db_storage.all(User)
         if username.data is not None:
             for user in users.values():
@@ -32,8 +30,7 @@ class ProfileForm(FlaskForm):
         if email.data is not None:
             if len(email.data) < 1:
                 email.data = None
-        else:
-            email.data = current_user.email
+
         if email.data is not None:
             if email.data is Email()(self, email):
                 raise ValidationError('Invalid email format.')

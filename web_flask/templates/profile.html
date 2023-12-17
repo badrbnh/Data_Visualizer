@@ -5,50 +5,49 @@
         <div class="edit-img">
             <h1>{{ current_user.username }}</h1>
             <div class="profile-img">
-                <img src="../static/resources/editProfile.svg" alt="profile image">
+                <img id="profileImage" src="../static/resources/editProfile.svg" alt="profile image">
             </div>
+            <div class="edit-img-btn">
+                <input type="file" id="uploaded-img" accept=".jpeg, .png, .jpg" hidden/>
+                <label for="uploaded-img" class="btn btn-primary">Edit image</label>
+            </div>
+            
             <div class="img-label">
                 <h3>Change Profile Picture</h3>
                 <p>Be yourself and join us</p>
             </div>
         </div>
         <div class="edit-info">
+            <div>
+                <h1>Account Information</h1>
+            </div>
             <form action="" method="post" novalidate>
-                {% if form.username.errors %}
-                <div class="form-floating  mb-3 mt-3">
-                    {% for error in form.username.errors %}
-                    {{ form.username(class="form-control is-invalid", id="floatingInputInvalid", placeholder="Username") }}
-                    <label for="floatingInputInvalid">{{ error }}</label>
-                    {% endfor %}    
+                <div id="erro-cont" style="margin-top: 12px;">
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                          {% for message in messages %}
+                          <div class="alert alert-danger" role="alert">{{ message }}</div>
+                          {% endfor %}
+                    {% endif %}
+                    {% endwith %}
                 </div>
-                {% else %}
                 <div  class="form-floating mb-3" id="floating-cont" userId="{{ current_user.id }}">
                     {{ form.hidden_tag() }}
                     {{ form.username(type="Username", class="form-control", id="floatingInput", placeholder="username") }}
                     <label for="floatingInput" id="username">Username</label>
                 </div>
-                {% endif %}
-                {% if form.email.errors %}
-                <div class="form-floating mb-3 mt-3">
-                    {% for error in form.email.errors %}
-                    {{ form.email(class="form-control is-invalid", id="floatingEmailInvalid", placeholder="name@example.com") }}
-                    <label for="floatingEmailInvalid">{{ error }}</label>
-                    {% endfor %}
-                </div>
-                {% else %}
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3" id="validEmail">
                     {{ form.email(class="form-control", id="floatingEmail", placeholder="name@example.com") }}
-                    <label for="floatingEmail" id="email">Email address</label>
+                    <label for="floatingEmail" id="email">Email</label>
                 </div>
-                {% endif %}
                 <div class="form-floating">
                     {{ form.password(type="password", class="form-control", id="floatingPassword", placeholder="Password") }}
                     <label for="floatingPassword" id="password">Password</label>
                 </div>
                 <div class="edit-confirm">
-                <button class="btn btn-secondary" id="edit-btn">Edit</button>
+                <button type="button" class="btn btn-secondary" id="edit-btn">Edit</button>
                 {{ form.submit(class="btn btn-success") }}
-                <button class="btn btn-danger" id="cancel-btn">Cancel</button>
+                <button class="btn btn-danger" id="cancel-btn" >Cancel</button>
                 </div>
             </form>
         </div>

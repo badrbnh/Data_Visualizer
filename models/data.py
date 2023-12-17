@@ -1,6 +1,6 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, String, LargeBinary, ForeignKey
+from sqlalchemy import Column, String, ForeignKey
 import pandas as pd
 import uuid
 class Data(Base, BaseModel):

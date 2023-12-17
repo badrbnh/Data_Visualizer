@@ -4,6 +4,15 @@
   <div class="login-form-container">
     <div class="login-container">
       <h2>Welcome back!</h2>
+      <div class="erro-cont">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              {% for message in messages %}
+              <div class="alert alert-danger" role="alert">{{ message }}</div>
+              {% endfor %}
+        {% endif %}
+        {% endwith %}
+      </div>
       <form action="" method="post" novalidate>
         <div  class="form-floating mb-3">
         {{ form.hidden_tag() }}
