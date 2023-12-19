@@ -9,7 +9,7 @@ header {
 
 .navbar .profile {
   width: 60px;
-  height: auto;
+  height: 60px;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -55,8 +55,17 @@ header {
   font-weight: 500;
 }
 
+.menu-profile {
+  background: #e5e5e5;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+
 .user-info img {
   width: 48px;
+  height: 48px;
   border-radius: 50%;
   margin-right: 15px;
 }

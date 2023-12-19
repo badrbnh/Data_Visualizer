@@ -26,7 +26,7 @@
                 <h1>Account Information</h1>
             </div>
             <form action="" method="post" novalidate>
-                <div id="erro-cont" style="margin-top: 12px;">
+                <div id="erro-cont" style="margin-top: 12px;"/>
                     {% with messages = get_flashed_messages() %}
                       {% if messages %}
                           {% for message in messages %}
@@ -37,20 +37,20 @@
                 </div>
                 <div  class="form-floating mb-3" id="floating-cont" userId="{{ current_user.id }}">
                     {{ form.hidden_tag() }}
-                    {{ form.username(type="Username", class="form-control", id="floatingInput", placeholder="username") }}
-                    <label for="floatingInput" id="username">Username</label>
+                    {{ form.username(type="Username", class="form-control", id="floatingUsername", placeholder="username") }}
+                    <label for="floatingUsername" id="username">Username</label>
                 </div>
                 <div class="form-floating mb-3" id="validEmail">
-                    {{ form.email(class="form-control", id="floatingEmail", placeholder="name@example.com") }}
-                    <label for="floatingEmail" id="email">Email</label>
+                    {{ form.email(class="form-control", id="floatingEmailEdit", placeholder="name@example.com") }}
+                    <label for="floatingEmailEdit" id="email">Email</label>
                 </div>
                 <div class="form-floating">
-                    {{ form.password(type="password", class="form-control", id="floatingPassword", placeholder="Password") }}
-                    <label for="floatingPassword" id="password">Password</label>
+                    {{ form.password(type="password", class="form-control", id="floatingPasswordEdit", placeholder="Password") }}
+                    <label for="floatingPasswordEdit" id="password">Password</label>
                 </div>
                 <div class="edit-confirm">
                 <button type="button" class="btn btn-secondary" id="edit-btn">Edit</button>
-                {{ form.submit(class="btn btn-success") }}
+                <div id="save-btn">{{ form.submit(class="btn btn-success") }}</div>
                 <button class="btn btn-danger" id="cancel-btn" >Cancel</button>
                 </div>
             </form>

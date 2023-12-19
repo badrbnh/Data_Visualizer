@@ -1,14 +1,13 @@
-const usernameInput = document.getElementById("floatingInput");
+const usernameInput = document.getElementById("floatingUsername");
 const usernameLabel = document.getElementById("username");
-const floatingContainer = document.getElementById("floating-cont");
-const userId = floatingContainer.getAttribute("userId");
 const emailLabel = document.getElementById("email");
 const passwordLabel = document.getElementById("password");
-const floatingPassword = document.getElementById("floatingPassword");
-const floatingEmail = document.getElementById("floatingEmail");
+const floatingPassword = document.getElementById("floatingPasswordEdit");
+const floatingEmail = document.getElementById("floatingEmailEdit");
 const validEmail = document.getElementById("validEmail");
 const erroContainer = document.getElementById("erro-cont");
 const profileImage = document.getElementById('profileImage');
+
 
 // Disable form inputs
 usernameInput.disabled = true;
@@ -95,41 +94,8 @@ const handleImageUpload = (event) => {
   }
 };
 
-const getUserImage = () => {
-  const xhr = new XMLHttpRequest();
-  xhr.open("GET", `//localhost:5000/api/v1/img/user/${userId}`);
-  xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-
-  xhr.onload = function () {
-    if (xhr.status === 200) {
-      try {
-        const response = JSON.parse(xhr.responseText);
-        if (Array.isArray(response) && response.length > 0) {
-          const imgName = response[0].img_name;
-          if (imgName) {
-            profileImage.src = `../static/resources/profileImg/${imgName}`;
-          } else {
-            console.error("Image name is missing in the API response.");
-          }
-        } else {
-          console.error("Invalid API response format or empty response.");
-        }
-      } catch (error) {
-        console.error("Error parsing API response:", error);
-      }
-    } else if (xhr.status === 404) {
-      profileImage.src = `../static/resources/editProfile.svg`;
-      console.error("User image not found. Using default image.");
-    } else {
-      console.error("Failed to get user image. Error code: " + xhr.status);
-    }
-  };
-
-  xhr.send();
-};
-
 getUserData();
-getUserImage();
+getUserImage(profileImage);
 
 $("#edit-btn").on("click", updateUserProfile);
 $("#cancel-btn").on("click", cancelUpdate);

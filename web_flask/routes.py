@@ -59,16 +59,16 @@ def login():
 
     form = LoginForm()
     if form.validate_on_submit():
-        users = db_storage.all(User)
-        for user in users.values():
-            if user.username == form.username.data and user.check_password(form.password.data):
-                if  user.is_verified == 1:
-                    login_user(user, remember=form.remember_me.data)
-                    return redirect(url_for('inside', username=user.username))
-                else:
-                    flash('Email not verified', 'error')
+        user = db_storage.get_user(User, form.username.data)
+        if user and user.check_password(form.password.data):
+            if  user.is_verified == 1:
+                login_user(user, remember=form.remember_me.data)
+                return redirect(url_for('inside', username=user.username))
             else:
-                flash('Invalid username or password', 'error')
+                flash('Email not verified', 'error')
+                return render_template('login.html', form=form)
+        else:
+            flash('Invalid username or password', 'error')
     return render_template('login.html', form=form)
 
 @app.route('/logout', methods=['GET', 'POST'], strict_slashes=False)
@@ -76,6 +76,7 @@ def logout():
     """allow user to logout"""
     logout_user()
     return redirect(url_for('login'))
+
 
 @app.route('/edit', methods=['GET', 'PUT', 'POST'], strict_slashes=False)
 def edit():
